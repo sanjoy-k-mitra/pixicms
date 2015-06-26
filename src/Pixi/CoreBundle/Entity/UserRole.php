@@ -17,12 +17,12 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToMany;
 
 /**
- * Class Role
+ * Class UserRole
  * @package PixiCoreBundle\Entity
  * @Entity
- * @Table(name="roles")
+ * @Table(name="user_roles")
  */
-class Role {
+class UserRole {
     /**
      * @var
      * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
@@ -58,7 +58,7 @@ class Role {
      * Set name
      *
      * @param string $name
-     * @return Role
+     * @return UserRole
      */
     public function setName($name)
     {
@@ -81,7 +81,7 @@ class Role {
      * Add permissions
      *
      * @param \Pixi\CoreBundle\Entity\Permission $permissions
-     * @return Role
+     * @return UserRole
      */
     public function addPermission(\Pixi\CoreBundle\Entity\Permission $permissions)
     {
