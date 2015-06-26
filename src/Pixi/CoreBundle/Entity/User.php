@@ -265,7 +265,7 @@ class User implements  UserInterface, \Serializable{
     public function getRoles()
     {
         $roles = array();
-        foreach ($this->getRole()->getPermissions() as $permission){
+        foreach ($this->getUserRole()->getPermissions() as $permission){
             array_push($roles, $permission->getKey());
         }
         return $roles;
