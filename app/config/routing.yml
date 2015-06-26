@@ -1,0 +1,4 @@
+pixi_core:
+    resource: "@PixiCoreBundle/Controller/"
+    type:     annotation
+    prefix:   /

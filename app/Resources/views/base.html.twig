@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html data-ng-app="PixiApp"->
+    <head data-ng-controller="HeadController">
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+
+        {% stylesheets
+        'lib/bootstrap/dist/css/bootstrap.min.css'
+        'lib/fontawesome/css/font-awesome.min.css' filter='cssrewrite'%}
+            <link rel="stylesheet" href="{{ asset_url }}">
+        {% endstylesheets %}
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body data-ng-controller="BodyController">
+        {% block body %}{% endblock %}
+
+
+        {% javascripts '@site_js_files' %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+        {% block bundlejs %}{% endblock %}
+    </body>
+</html>
