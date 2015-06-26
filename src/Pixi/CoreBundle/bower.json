@@ -1,0 +1,16 @@
+{
+  "name": "CoreBundle",
+  "version": "1.0.0",
+  "authors": [
+    "Sanjoy Mitra <sanjoy120@gmail.com>"
+  ],
+  "license": "Proprietary",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "Resources/public/lib",
+    "test",
+    "tests"
+  ]
+}
