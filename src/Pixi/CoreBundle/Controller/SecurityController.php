@@ -18,6 +18,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class SecurityController extends Controller{
 
     /**
+     *
      * @Route("/login", name="login_path")
      * @Template
      */
