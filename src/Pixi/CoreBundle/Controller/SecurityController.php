@@ -18,10 +18,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 class SecurityController extends Controller{
 
     /**
-     * @param Request $request
      * @Route("/login", name="login_path")
      * @Template
-     * @return array
      */
     public function loginAction(Request $request){
         $authUtils = $this->get('security.authentication_utils');

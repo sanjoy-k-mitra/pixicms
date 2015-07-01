@@ -19,7 +19,8 @@ security:
             security: false
 
         default:
-            pattern: ^/
+            anonymous: ~
+            http_basic: ~
             form_login:
                 login_path: /login
                 check_path: /login_check
@@ -27,3 +28,7 @@ security:
             logout:
                 path: /logout
                 target: /
+
+
+    access_control:
+        - {path: ^/admin/, roles: ROLE_ADMIN}
