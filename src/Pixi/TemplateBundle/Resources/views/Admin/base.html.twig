@@ -6,7 +6,13 @@
 
         {% stylesheets
         '@PixiTemplateBundle/Resources/public/lib/bootstrap/dist/css/bootstrap.min.css'
-        '@PixiTemplateBundle/Resources/public/lib/fontawesome/css/font-awesome.min.css' filter='cssrewrite'%}
+        '@PixiTemplateBundle/Resources/public/lib/fontawesome/css/font-awesome.min.css'
+        '@PixiTemplateBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.css'
+        '@PixiTemplateBundle/Resources/public/lib/angular-loading-bar/build/loading-bar.min.css'
+        '@PixiTemplateBundle/Resources/public/css/main.css'
+        '@PixiTemplateBundle/Resources/public/css/sb-admin-2.css'
+        '@PixiTemplateBundle/Resources/public/css/timeline.css'
+        filter='cssrewrite'%}
             <link rel="stylesheet" href="{{ asset_url }}">
         {% endstylesheets %}
         {% block stylesheets %}{% endblock %}
@@ -19,6 +25,14 @@
         {% javascripts
             '@PixiTemplateBundle/Resources/public/lib/jquery/dist/jquery.min.js'
             '@PixiTemplateBundle/Resources/public/lib/angular/angular.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/bootstrap/dist/js/bootstrap.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/angular-ui-router/release/angular-ui-router.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/json3/lib/json3.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/oclazyload/dist/ocLazyLoad.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/angular-loading-bar/build/loading-bar.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.js'
+            '@PixiTemplateBundle/Resources/public/lib/Chart.js/Chart.min.js'
         %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}
