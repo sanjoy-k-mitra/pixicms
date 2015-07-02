@@ -28,7 +28,7 @@ class Permission {
     protected $id;
     /**
      * @var
-     * @Column(type="string", length=100, unique=true)
+     * @Column(name="permission_key", type="string", length=100, unique=true)
      */
     protected $key;
     /**
