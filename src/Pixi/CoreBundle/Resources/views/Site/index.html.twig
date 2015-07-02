@@ -1,11 +1,13 @@
-{% extends 'base.html.twig' %}
+{% extends 'PixiCoreBundle:Site:base.html.twig' %}
 
 {% block body %}
     Hello World
 {% endblock %}
 
 {% block bundlejs %}
-    {% javascripts '@PixiCoreBundle/Resources/public/js/site/app.js' %}
+    {% javascripts
+    '@PixiCoreBundle/Resources/public/js/site/app.js'
+    %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 {% endblock %}

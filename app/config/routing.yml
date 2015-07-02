@@ -1,8 +1,12 @@
-logout:
-    path: /logout
-
-pixi_core:
-    resource: "@PixiCoreBundle/Controller/"
+pixi_template:
+    resource: "@PixiTemplateBundle/Controller/"
     type:     annotation
     prefix:   /
 
+pixi_core:
+    resource: "../../src/Pixi/CoreBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+logout:
+    path: /logout

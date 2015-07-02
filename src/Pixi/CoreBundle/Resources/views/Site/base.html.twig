@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html data-ng-app="PixiApp"->
+<head data-ng-controller="HeadController">
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+
+    {% block stylesheets %}{% endblock %}
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+</head>
+<body data-ng-controller="BodyController">
+{% block body %}{% endblock %}
+
+{% javascripts
+    '@PixiCoreBundle/Resources/public/lib/jquery/dist/jquery.min.js'
+    '@PixiCoreBundle/Resources/public/lib/angular/angular.min.js'
+%}
+{% endjavascripts %}
+{% block bundlejs %}{% endblock %}
+</body>
+</html>
