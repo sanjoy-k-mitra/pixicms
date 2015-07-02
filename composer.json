@@ -10,19 +10,19 @@
     },
     "require": {
         "php": ">=5.3.9",
-        "symfony/symfony": "2.7.*",
-        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
-        "doctrine/dbal": "<2.5",
-        "doctrine/doctrine-bundle": "~1.4",
-        "symfony/assetic-bundle": "~2.3",
-        "symfony/swiftmailer-bundle": "~2.3",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~4.0",
-        "sensio/framework-extra-bundle": "~3.0,>=3.0.2",
-        "incenteev/composer-parameter-handler": "~2.0"
+        "symfony/symfony": "*",
+        "doctrine/orm": "*",
+        "doctrine/dbal": "*",
+        "doctrine/doctrine-bundle": "*",
+        "symfony/assetic-bundle": "*",
+        "symfony/swiftmailer-bundle": "*",
+        "symfony/monolog-bundle": "*",
+        "sensio/distribution-bundle": "*",
+        "sensio/framework-extra-bundle": "*",
+        "incenteev/composer-parameter-handler": "*"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3",
+        "sensio/generator-bundle": "*",
         "doctrine/doctrine-fixtures-bundle": "*"
     },
     "scripts": {
