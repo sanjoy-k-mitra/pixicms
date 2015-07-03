@@ -1,8 +1,14 @@
 <!DOCTYPE html>
-<html data-ng-app="PixiApp"->
-<head data-ng-controller="HeadController">
-    <meta charset="UTF-8" />
-    <title>{% block title %}Welcome!{% endblock %}</title>
+<html data-ng-app="PixiApp" data-ng-controller="ApplicationController">
+<head>
+    <meta charset="UTF-8"/>
+    <title>
+        {% block title %}
+            {% raw %}
+                {{ applicationTitle }}
+            {% endraw %}
+        {% endblock %}
+    </title>
 
     {% stylesheets
     '@PixiCoreBundle/Resources/public/lib/bootstrap/dist/css/bootstrap.min.css'
@@ -12,13 +18,13 @@
     '@PixiCoreBundle/Resources/public/css/main.css'
     '@PixiCoreBundle/Resources/public/css/sb-admin-2.css'
     '@PixiCoreBundle/Resources/public/css/timeline.css'
-    filter='cssrewrite'%}
-    <link rel="stylesheet" href="{{ asset_url }}">
+    filter='cssrewrite' %}
+    <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
     {% block stylesheets %}{% endblock %}
-    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
-<body data-ng-controller="BodyController">
+<body>
 {% block body %}{% endblock %}
 
 
@@ -33,7 +39,8 @@
 '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
 '@PixiCoreBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.js'
 '@PixiCoreBundle/Resources/public/lib/Chart.js/Chart.min.js'
-%}
+
+'@PixiCoreBundle/Resources/public/js/admin/app.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 

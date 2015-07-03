@@ -3,9 +3,8 @@
  */
 (function(){
     var app = angular.module('PixiApp', [])
-        .controller('HeadController', ['$scope', function($scope){
+        .controller('ApplicationController', ['$scope', function($scope){
+            $scope.applicationTitle = "Homepage | PixiApp";
 
-        }]).controller('BodyController', ['$scope', function($scope){
-
-        }])
+        }]);
 })();

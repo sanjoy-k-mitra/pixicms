@@ -23,7 +23,7 @@ class AdminController extends Controller{
      * @Route("/admin", name="adminPanel")
      * @Template()
      */
-    public function dashboardAction(){
+    public function indexAction(){
         return array();
     }
 
