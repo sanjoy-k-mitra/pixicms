@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html data-ng-app="PixiApp" data-ng-controller="ApplicationController">
+<html data-ng-app="PixiAdminApp" data-ng-controller="ApplicationController">
 <head>
     <meta charset="UTF-8"/>
     <title>
@@ -25,7 +25,14 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-{% block body %}{% endblock %}
+
+    <div>
+        <div ui-view>
+            {% block body %}
+            {% endblock %}
+        </div>
+    </div>
+
 
 
 {% javascripts
@@ -39,7 +46,6 @@
 '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
 '@PixiCoreBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.js'
 '@PixiCoreBundle/Resources/public/lib/Chart.js/Chart.min.js'
-
 '@PixiCoreBundle/Resources/public/js/admin/app.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
