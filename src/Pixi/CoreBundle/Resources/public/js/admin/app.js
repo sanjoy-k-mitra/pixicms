@@ -81,6 +81,66 @@
                         }
                     }
                 })
+                .state('dashboard.form',{
+                    templateUrl:'/bundles/pixicore/template/admin/form.html',
+                    url:'/form'
+                })
+                .state('dashboard.blank',{
+                    templateUrl:'/bundles/pixicore/template/admin/pages/blank.html',
+                    url:'/blank'
+                })
+                .state('login',{
+                    templateUrl:'/bundles/pixicore/template/admin/pages/login.html',
+                    url:'/login'
+                })
+                .state('dashboard.chart',{
+                    templateUrl:'/bundles/pixicore/template/admin/chart.html',
+                    url:'/chart',
+                    controller:'ChartCtrl',
+                    resolve: {
+                        loadMyFile:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'chart.js',
+                                files:[
+                                    '/bundles/pixicore/lib/angular-chart.js/dist/angular-chart.min.js',
+                                    '/bundles/pixicore/lib/angular-chart.js/dist/angular-chart.css'
+                                ]
+                            }),
+                                $ocLazyLoad.load({
+                                    name:'sbAdminApp',
+                                    files:['/bundles/pixicore/scripts/controllers/chartContoller.js']
+                                })
+                        }
+                    }
+                })
+                .state('dashboard.table',{
+                    templateUrl:'/bundles/pixicore/template/admin/table.html',
+                    url:'/table'
+                })
+                .state('dashboard.panels-wells',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/panels-wells.html',
+                    url:'/panels-wells'
+                })
+                .state('dashboard.buttons',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/buttons.html',
+                    url:'/buttons'
+                })
+                .state('dashboard.notifications',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/notifications.html',
+                    url:'/notifications'
+                })
+                .state('dashboard.typography',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/typography.html',
+                    url:'/typography'
+                })
+                .state('dashboard.icons',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/icons.html',
+                    url:'/icons'
+                })
+                .state('dashboard.grid',{
+                    templateUrl:'/bundles/pixicore/template/admin/ui-elements/grid.html',
+                    url:'/grid'
+                })
         }])
         .controller('ApplicationController', ['$scope', function ($scope) {
             $scope.applicationTitle = "Admin Panel | PixiAdminApp";
