@@ -9,7 +9,7 @@
 angular.module('sbAdminApp')
 	.directive('chat',function(){
 		return {
-        templateUrl:'scripts/directives/chat/chat.html',
+        templateUrl:'/bundles/pixicore/scripts/directives/chat/chat.html',
         restrict: 'E',
         replace: true,
     	}
