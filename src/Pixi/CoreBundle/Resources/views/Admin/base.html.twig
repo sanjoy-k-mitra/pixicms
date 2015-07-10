@@ -11,17 +11,17 @@
     </title>
 
     {% stylesheets
-    '@PixiCoreBundle/Resources/public/lib/bootstrap/dist/css/bootstrap.min.css'
-    '@PixiCoreBundle/Resources/public/lib/fontawesome/css/font-awesome.min.css'
-    '@PixiCoreBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.css'
-    '@PixiCoreBundle/Resources/public/lib/angular-loading-bar/build/loading-bar.min.css'
-    '@PixiCoreBundle/Resources/public/css/main.css'
-    '@PixiCoreBundle/Resources/public/css/sb-admin-2.css'
-    '@PixiCoreBundle/Resources/public/css/timeline.css'
+    'bundles/pixicore/lib/bootstrap/dist/css/bootstrap.min.css' filter='cssrewrite'
+    'bundles/pixicore/lib/fontawesome/css/font-awesome.min.css' filter='cssrewrite'
+    'bundles/pixicore/lib/metisMenu/dist/metisMenu.min.css' filter='cssrewrite'
+    'bundles/pixicore/lib/angular-loading-bar/build/loading-bar.min.css' filter='cssrewrite'
+    'bundles/pixicore/css/main.css'
+    'bundles/pixicore/css/sb-admin-2.css'
+    'bundles/pixicore/css/timeline.css'
     filter='cssrewrite' %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
-    {% block stylesheets %}{% endblock %}
+    {% block bundlecss %}{% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
@@ -36,18 +36,18 @@
 
 
 {% javascripts
-'@PixiCoreBundle/Resources/public/lib/jquery/dist/jquery.min.js'
-'@PixiCoreBundle/Resources/public/lib/angular/angular.min.js'
-'@PixiCoreBundle/Resources/public/lib/bootstrap/dist/js/bootstrap.min.js'
-'@PixiCoreBundle/Resources/public/lib/angular-ui-router/release/angular-ui-router.min.js'
-'@PixiCoreBundle/Resources/public/lib/json3/lib/json3.min.js'
-'@PixiCoreBundle/Resources/public/lib/oclazyload/dist/ocLazyLoad.min.js'
-'@PixiCoreBundle/Resources/public/lib/angular-loading-bar/build/loading-bar.min.js'
-'@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
-'@PixiCoreBundle/Resources/public/lib/metisMenu/dist/metisMenu.min.js'
-'@PixiCoreBundle/Resources/public/lib/Chart.js/Chart.min.js'
-'@PixiCoreBundle/Resources/public/scripts/template-module.js'
-'@PixiCoreBundle/Resources/public/js/admin/app.js' %}
+'bundles/pixicore/lib/jquery/dist/jquery.min.js'
+'bundles/pixicore/lib/angular/angular.min.js'
+'bundles/pixicore/lib/bootstrap/dist/js/bootstrap.min.js'
+'bundles/pixicore/lib/angular-ui-router/release/angular-ui-router.min.js'
+'bundles/pixicore/lib/json3/lib/json3.min.js'
+'bundles/pixicore/lib/oclazyload/dist/ocLazyLoad.min.js'
+'bundles/pixicore/lib/angular-loading-bar/build/loading-bar.min.js'
+'bundles/pixicore/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+'bundles/pixicore/lib/metisMenu/dist/metisMenu.min.js'
+'bundles/pixicore/lib/Chart.js/Chart.min.js'
+'bundles/pixicore/scripts/template-module.js'
+'bundles/pixicore/js/admin/app.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 

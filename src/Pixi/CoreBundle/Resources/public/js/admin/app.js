@@ -9,12 +9,12 @@
                 events: true
             })
 
-            $urlRouterProvider.otherwise('/dashboard')
+            $urlRouterProvider.otherwise('/dashboard/home')
 
             $stateProvider
                 .state('dashboard', {
                     url: '/dashboard',
-                    templateUrl: '/template/PixiCoreBundle:Admin:dashboard.html',
+                    templateUrl: '/bundles/pixicore/template/admin/dashboard/main.html',
                     resolve: {
                         loadMyDirectives: function ($ocLazyLoad) {
                             $ocLazyLoad.load(
@@ -59,6 +59,25 @@
                                     name: 'ngTouch',
                                     files: ['/bundles/pixicore/lib/angular-touch/angular-touch.js']
                                 })
+                        }
+                    }
+                })
+                .state('dashboard.home',{
+                    url:'/home',
+                    controller: 'MainCtrl',
+                    templateUrl:'/bundles/pixicore/template/admin/dashboard/home.html',
+                    resolve: {
+                        loadMyFiles:function($ocLazyLoad) {
+                            return $ocLazyLoad.load({
+                                name:'sbAdminApp',
+                                files:[
+                                    '/bundles/pixicore/scripts/controllers/main.js',
+                                    '/bundles/pixicore/scripts/directives/timeline/timeline.js',
+                                    '/bundles/pixicore/scripts/directives/notifications/notifications.js',
+                                    '/bundles/pixicore/scripts/directives/chat/chat.js',
+                                    '/bundles/pixicore/scripts/directives/dashboard/stats/stats.js'
+                                ]
+                            })
                         }
                     }
                 })
