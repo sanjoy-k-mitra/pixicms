@@ -20,7 +20,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
  */
 class AdminController extends Controller{
     /**
-     * @Route("/admin", name="adminPanel")
+     * @Route("/admin/", name="adminPanel")
      * @Template()
      */
     public function indexAction(){

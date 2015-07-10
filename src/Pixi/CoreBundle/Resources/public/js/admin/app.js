@@ -14,7 +14,7 @@
             $stateProvider
                 .state('dashboard', {
                     url:'/dashboard',
-                    templateUrl:'views/dashboard/main.html',
+                    templateUrl:'/template/PixiCoreBundle:Admin:dashboard.html',
                     resolve: {
                         loadMyDirectives: function(){
 
