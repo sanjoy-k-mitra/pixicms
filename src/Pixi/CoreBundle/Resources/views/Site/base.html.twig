@@ -10,8 +10,8 @@
         {% endblock %}
     </title>
     {% stylesheets
-    '@PixiCoreBundle/Resources/public/lib/bootstrap/dist/css/bootstrap.min.css'
-    '@PixiCoreBundle/Resources/public/lib/fontawesome/css/font-awesome.min.css'
+    'bundles/pixicore/lib/bootstrap/dist/css/bootstrap.min.css'
+    'bundles/pixicore/lib/fontawesome/css/font-awesome.min.css'
     filter='cssrewrite' %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
@@ -19,13 +19,13 @@
     {% endblock %}
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
-<body data-ng-controller="BodyController">
+<body>
 {% block body %}{% endblock %}
 
 {% javascripts
-'@PixiCoreBundle/Resources/public/lib/jquery/dist/jquery.min.js'
-'@PixiCoreBundle/Resources/public/lib/angular/angular.min.js'
-'@PixiCoreBundle/Resources/public/js/site/app.js' %}
+'bundles/pixicore/lib/jquery/dist/jquery.min.js'
+'bundles/pixicore/lib/angular/angular.min.js'
+'bundles/pixicore/js/site/app.js' %}
 <script type="text/javascript" src="{{ asset_url }}"></script>
 {% endjavascripts %}
 {% block bundlejs %}{% endblock %}
