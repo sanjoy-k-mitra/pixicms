@@ -13,32 +13,49 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\XmlEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
-abstract class RestController extends Controller{
+abstract class RestController extends Controller
+{
+
+    protected static $serializer;
 
     abstract protected function getEntityClass();
 
+    public function __construct()
+    {
+        if (is_null(RestController::$serializer)) {
+            RestController::$serializer = new Serializer(array(new ObjectNormalizer()), array(new JsonEncoder(), new XmlEncoder()));
+        }
+    }
+
     /*
      * @Route("/")
      * @Method("GET")
      */
-    public function index(){
-        return new JsonResponse($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->findAll());
+    public function index()
+    {
+        return RestController::$serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->findAll(), 'json');
     }
 
     /*
      * @Route("/{id}")
      * @Method("GET")
      */
-    public function item($id){
-        return new JsonResponse($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->find($id));
+    public function item($id)
+    {
+        return RestController::$serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->find($id), "json");
     }
 
     /*
      * @Route("/")
      * @Method({"POST","PUT"})
      */
-    public function create(){
+    public function create()
+    {
 
     }
 
@@ -46,7 +63,8 @@ abstract class RestController extends Controller{
      * @Route("/{id}")
      * @Method({"POST","PUT"})
      */
-    public function update($id){
+    public function update($id)
+    {
 
     }
 
@@ -54,7 +72,8 @@ abstract class RestController extends Controller{
      * @Route("/{id}")
      * @Method("DELETE")
      */
-    public function delete($id){
+    public function delete($id)
+    {
 
     }
 }
