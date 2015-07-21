@@ -17,6 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class UserController extends RestController{
 
+    protected $ignoredProperties = array("users");
+
     protected function getEntityClass(){
         return "PixiCoreBundle:User";
     }

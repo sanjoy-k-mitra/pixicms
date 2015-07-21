@@ -15,10 +15,14 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
+use Doctrine\ORM\Mapping\OneToMany;
+
+use Pixi\CoreBundle\Entity\Permission;
 
 /**
  * Class UserRole
- * @package PixiCoreBundle\Entity
+ * @package Pixi\CoreBundle\Entity
  * @Entity
  * @Table(name="user_roles")
  */
@@ -34,20 +38,26 @@ class UserRole {
      */
     protected $name;
     /**
-     * @ManyToMany(targetEntity="Permission")
+     * @ManyToMany(targetEntity="Permission", inversedBy="userRoles")
      */
     protected $permissions;
+    /**
+     * @OneToMany(targetEntity="User", mappedBy="userRole")
+     */
+    protected $users;
 
-    public function __construct(){
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
         $this->permissions = new ArrayCollection();
     }
-
-
 
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -58,6 +68,7 @@ class UserRole {
      * Set name
      *
      * @param string $name
+     *
      * @return UserRole
      */
     public function setName($name)
@@ -70,7 +81,7 @@ class UserRole {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -78,35 +89,70 @@ class UserRole {
     }
 
     /**
-     * Add permissions
+     * Add permission
      *
-     * @param \Pixi\CoreBundle\Entity\Permission $permissions
+     * @param \Pixi\CoreBundle\Entity\Permission $permission
+     *
      * @return UserRole
      */
-    public function addPermission(\Pixi\CoreBundle\Entity\Permission $permissions)
+    public function addPermission(\Pixi\CoreBundle\Entity\Permission $permission)
     {
-        $this->permissions[] = $permissions;
+        $this->permissions[] = $permission;
 
         return $this;
     }
 
     /**
-     * Remove permissions
+     * Remove permission
      *
-     * @param \Pixi\CoreBundle\Entity\Permission $permissions
+     * @param \Pixi\CoreBundle\Entity\Permission $permission
      */
-    public function removePermission(\Pixi\CoreBundle\Entity\Permission $permissions)
+    public function removePermission(\Pixi\CoreBundle\Entity\Permission $permission)
     {
-        $this->permissions->removeElement($permissions);
+        $this->permissions->removeElement($permission);
     }
 
     /**
      * Get permissions
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPermissions()
     {
         return $this->permissions;
+    }
+
+    /**
+     * Add user
+     *
+     * @param \Pixi\CoreBundle\Entity\User $user
+     *
+     * @return UserRole
+     */
+    public function addUser(\Pixi\CoreBundle\Entity\User $user)
+    {
+        $this->users[] = $user;
+
+        return $this;
+    }
+
+    /**
+     * Remove user
+     *
+     * @param \Pixi\CoreBundle\Entity\User $user
+     */
+    public function removeUser(\Pixi\CoreBundle\Entity\User $user)
+    {
+        $this->users->removeElement($user);
+    }
+
+    /**
+     * Get users
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUsers()
+    {
+        return $this->users;
     }
 }

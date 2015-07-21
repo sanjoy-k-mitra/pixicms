@@ -14,9 +14,11 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\ManyToOne;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Pixi\CoreBundle\Entity\UserRole;
 
 /**
  * Class User
@@ -24,7 +26,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  * @Entity
  * @Table(name="users")
  */
-class User implements  UserInterface, \Serializable{
+class User implements UserInterface, \Serializable{
     /**
      * @var
      * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
@@ -46,7 +48,7 @@ class User implements  UserInterface, \Serializable{
      */
     protected $name;
     /**
-     * @OneToOne(targetEntity="UserRole")
+     * @ManyToOne(targetEntity="UserRole", inversedBy="users")
      */
     protected $userRole;
     /**
@@ -59,155 +61,6 @@ class User implements  UserInterface, \Serializable{
      * @Column(type="boolean")
      */
     protected $isActive;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return User
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set password
-     *
-     * @param string $password
-     * @return User
-     */
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string 
-     */
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set name
-     *
-     * @param string $name
-     * @return User
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * Get name
-     *
-     * @return string 
-     */
-    public function getName()
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set role
-     *
-     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
-     * @return User
-     */
-    public function setUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole = null)
-    {
-        $this->userRole = $userRole;
-
-        return $this;
-    }
-
-    /**
-     * Get role
-     *
-     * @return \Pixi\CoreBundle\Entity\UserRole
-     */
-    public function getUserRole()
-    {
-        return $this->userRole;
-    }
-
-    /**
-     * Set email
-     *
-     * @param string $email
-     * @return User
-     */
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get email
-     *
-     * @return string 
-     */
-    public function getEmail()
-    {
-        return $this->email;
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param boolean $isActive
-     * @return User
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return boolean 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
-    }
 
     /**
      * (PHP 5 &gt;= 5.1.0)<br/>
@@ -265,7 +118,7 @@ class User implements  UserInterface, \Serializable{
     public function getRoles()
     {
         $roles = array();
-        foreach ($this->getUserRole()->getPermissions() as $permission){
+        foreach ($this->userRole->getPermissions() as $permission){
             array_push($roles, $permission->getKey());
         }
         return $roles;
@@ -295,4 +148,158 @@ class User implements  UserInterface, \Serializable{
     }
 
 
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     *
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set userRole
+     *
+     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
+     *
+     * @return User
+     */
+    public function setUserRole(UserRole $userRole = null)
+    {
+        $this->userRole = $userRole;
+
+        return $this;
+    }
+
+    /**
+     * Get userRole
+     *
+     * @return \Pixi\CoreBundle\Entity\UserRole
+     */
+    public function getUserRole()
+    {
+        return $this->userRole;
+    }
 }

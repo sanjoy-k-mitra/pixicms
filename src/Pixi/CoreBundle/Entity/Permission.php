@@ -13,6 +13,8 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\JoinTable;
 
 /**
  * Class Role
@@ -37,6 +39,11 @@ class Permission {
      */
     protected $name;
     /**
+     * @ManyToMany(targetEntity="UserRole", mappedBy="permissions")
+     *
+     */
+    protected $userRoles;
+    /**
      * @var
      * @Column(type="string", length=255, nullable=true)
      */
@@ -45,7 +52,7 @@ class Permission {
     /**
      * Get id
      *
-     * @return integer 
+     * @return integer
      */
     public function getId()
     {
@@ -56,6 +63,7 @@ class Permission {
      * Set key
      *
      * @param string $key
+     *
      * @return Permission
      */
     public function setKey($key)
@@ -68,7 +76,7 @@ class Permission {
     /**
      * Get key
      *
-     * @return string 
+     * @return string
      */
     public function getKey()
     {
@@ -79,6 +87,7 @@ class Permission {
      * Set name
      *
      * @param string $name
+     *
      * @return Permission
      */
     public function setName($name)
@@ -91,7 +100,7 @@ class Permission {
     /**
      * Get name
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -102,6 +111,7 @@ class Permission {
      * Set description
      *
      * @param string $description
+     *
      * @return Permission
      */
     public function setDescription($description)
@@ -114,10 +124,51 @@ class Permission {
     /**
      * Get description
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
         return $this->description;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add userRole
+     *
+     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
+     *
+     * @return Permission
+     */
+    public function addUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole)
+    {
+        $this->userRoles[] = $userRole;
+
+        return $this;
+    }
+
+    /**
+     * Remove userRole
+     *
+     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
+     */
+    public function removeUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole)
+    {
+        $this->userRoles->removeElement($userRole);
+    }
+
+    /**
+     * Get userRoles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getUserRoles()
+    {
+        return $this->userRoles;
     }
 }

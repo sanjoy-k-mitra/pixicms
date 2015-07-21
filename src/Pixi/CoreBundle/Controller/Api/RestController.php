@@ -13,44 +13,54 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
 
+/**
+ * Class RestController
+ * @package Pixi\CoreBundle\Controller\Api
+ * @Route("/api/rest/example")
+ */
 abstract class RestController extends Controller
 {
+    protected $serializer;
 
-    protected static $serializer;
+    protected $ignoredProperties = array();
 
     abstract protected function getEntityClass();
 
-    public function __construct()
-    {
-        if (is_null(RestController::$serializer)) {
-            RestController::$serializer = new Serializer(array(new ObjectNormalizer()), array(new JsonEncoder(), new XmlEncoder()));
-        }
+    public function __construct(){
+        $normalizer = new ObjectNormalizer();
+        $normalizer->setIgnoredAttributes($this->ignoredProperties);
+        $normalizer->setCircularReferenceLimit(1);
+        $normalizer->setCircularReferenceHandler(function($object){
+            return array("id"=>$object->getId());
+        });
+        $this->serializer = new Serializer(array($normalizer), array(new JsonEncoder(), new XmlEncoder()));
     }
-
-    /*
+    
+    /**
      * @Route("/")
      * @Method("GET")
      */
     public function index()
     {
-        return RestController::$serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->findAll(), 'json');
+        return new Response($this->serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->findAll(), 'json'));
     }
 
-    /*
+    /**
      * @Route("/{id}")
      * @Method("GET")
      */
     public function item($id)
     {
-        return RestController::$serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->find($id), "json");
+        return new Response($this->serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->find($id), "json"));
     }
 
-    /*
+    /**
      * @Route("/")
      * @Method({"POST","PUT"})
      */
@@ -59,7 +69,7 @@ abstract class RestController extends Controller
 
     }
 
-    /*
+    /**
      * @Route("/{id}")
      * @Method({"POST","PUT"})
      */
@@ -68,7 +78,7 @@ abstract class RestController extends Controller
 
     }
 
-    /*
+    /**
      * @Route("/{id}")
      * @Method("DELETE")
      */
