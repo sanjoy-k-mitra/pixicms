@@ -2,14 +2,14 @@
  * Created by sanjoy on 6/26/15.
  */
 (function () {
-    var app = angular.module('PixiAdminApp', ['sbAdminApp'])
+    var app = angular.module('pixiAdminApp', ['sbAdminApp'])
         .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $ocLazyLoadProvider.config({
                 debug: true,
                 events: true
             })
 
-            $urlRouterProvider.otherwise('/dashboard/template')
+            $urlRouterProvider.otherwise('/dashboard/home')
 
             $stateProvider
                 .state('dashboard', {
@@ -23,8 +23,7 @@
                                     files: [
                                         '/bundles/pixicore/scripts/directives/header/header.js',
                                         '/bundles/pixicore/scripts/directives/header/header-notification/header-notification.js',
-                                        '/bundles/pixicore/scripts/directives/sidebar/sidebar.js',
-                                        '/bundles/pixicore/scripts/directives/sidebar/sidebar-search/sidebar-search.js'
+                                        '/bundles/pixicore/scripts/directives/sidebar/sidebar.js'
                                     ]
                                 })
                             $ocLazyLoad.load(
@@ -62,8 +61,8 @@
                         }
                     }
                 })
-                .state('dashboard.template',{
-                    url:'/template',
+                .state('dashboard.home',{
+                    url:'/home',
                     controller: 'MainCtrl',
                     templateUrl:'/bundles/pixicore/template/admin/dashboard/home.html',
                     resolve: {
