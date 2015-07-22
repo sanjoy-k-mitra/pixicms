@@ -17,7 +17,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class UserController extends RestController{
 
-    protected $ignoredProperties = array("users", "lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__");
+    protected $ignoredProperties = array("password", "users", "lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__");
 
     protected function getEntityClass(){
         return "PixiCoreBundle:User";
