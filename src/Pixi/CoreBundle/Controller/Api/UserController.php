@@ -17,50 +17,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
  */
 class UserController extends RestController{
 
-    protected $ignoredProperties = array("users");
+    protected $ignoredProperties = array("users", "lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__");
 
     protected function getEntityClass(){
         return "PixiCoreBundle:User";
     }
 
-    /**
-     * @Route("/")
-     * @Method("GET")
-     */
-    public function index(){
-        return parent::index();
-    }
 
-    /**
-     * @Route("/{id}")
-     * @Method("GET")
-     */
-    public function item($id){
-        return parent::item($id);
-    }
-
-    /**
-     * @Route("/")
-     * @Method({"POST","PUT"})
-     */
-    public function create(){
-
-    }
-
-    /**
-     * @Route("/{id}")
-     * @Method({"POST","PUT"})
-     */
-    public function update($id){
-
-    }
-
-    /**
-     * @Route("/{id}")
-     * @Method("DELETE")
-     */
-    public function delete($id){
-
-    }
 
 }
