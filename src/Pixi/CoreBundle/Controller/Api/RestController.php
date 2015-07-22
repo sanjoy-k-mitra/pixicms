@@ -27,28 +27,43 @@ use Symfony\Component\Serializer\Serializer;
 abstract class RestController extends Controller
 {
     protected $serializer;
+    protected $normalizer;
 
-    protected $ignoredProperties = array();
+    protected $ignoredProperties = array("lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__", "password", "salt");
 
     abstract protected function getEntityClass();
 
-    public function __construct(){
-        $normalizer = new ObjectNormalizer();
-        $normalizer->setIgnoredAttributes($this->ignoredProperties);
-        $normalizer->setCircularReferenceLimit(1);
-        $normalizer->setCircularReferenceHandler(function($object){
-            return array("id"=>$object->getId());
+    public function __construct()
+    {
+        $this->normalizer = new ObjectNormalizer();
+        $this->normalizer->setIgnoredAttributes($this->ignoredProperties);
+        $this->normalizer->setCircularReferenceLimit(1);
+        $this->normalizer->setCircularReferenceHandler(function ($object) {
+            return array("id" => $object->getId());
         });
-        $this->serializer = new Serializer(array($normalizer), array(new JsonEncoder(), new XmlEncoder()));
+        $this->serializer = new Serializer(array($this->normalizer), array(new JsonEncoder(), new XmlEncoder()));
     }
-    
+
+    public function getIgnoredProperties()
+    {
+        return $this->$ignoredProperties;
+    }
+
     /**
      * @Route("/")
      * @Method("GET")
      */
     public function index()
     {
-        return new Response($this->serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->findAll(), 'json'));
+        return new Response(
+            $this->serializer->serialize(
+                $this->getDoctrine()->getManager()
+                    ->getRepository(
+                        $this->getEntityClass()
+                    )->findAll(),
+                'json'
+            )
+        );
     }
 
     /**
@@ -57,7 +72,13 @@ abstract class RestController extends Controller
      */
     public function item($id)
     {
-        return new Response($this->serializer->serialize($this->getDoctrine()->getManager()->getRepository($this->getEntityClass())->find($id), "json"));
+        return new Response(
+            $this->serializer->serialize(
+                $this->getDoctrine()->getManager()
+                    ->getRepository($this->getEntityClass())->find($id)
+                , "json"
+            )
+        );
     }
 
     /**
@@ -84,6 +105,15 @@ abstract class RestController extends Controller
      */
     public function delete($id)
     {
+        $em = $this->getDoctrine()->getManager();
+        $entry = $em->getRepository($this->getEntityClass())->find($id);
+        $em->remove($entry);
 
+        return new Response(
+            $this->serializer->serialize(
+                $entry,
+                "json"
+            )
+        );
     }
 }
