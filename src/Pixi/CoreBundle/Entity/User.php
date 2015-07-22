@@ -13,7 +13,6 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
-use Doctrine\ORM\Mapping\OneToOne;
 use Doctrine\ORM\Mapping\ManyToOne;
 
 use Symfony\Component\Security\Core\Role\Role;
@@ -26,12 +25,7 @@ use Pixi\CoreBundle\Entity\UserRole;
  * @Entity
  * @Table(name="users")
  */
-class User implements UserInterface, \Serializable{
-    /**
-     * @var
-     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class User extends PixiModel implements UserInterface, \Serializable{
     /**
      * @var
      * @Column(type="string", length=100)
@@ -48,7 +42,7 @@ class User implements UserInterface, \Serializable{
      */
     protected $name;
     /**
-     * @ManyToOne(targetEntity="UserRole", inversedBy="users")
+     * @ManyToOne(targetEntity="UserRole")
      */
     protected $userRole;
     /**
@@ -147,17 +141,6 @@ class User implements UserInterface, \Serializable{
         // TODO: Implement eraseCredentials() method.
     }
 
-
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set username
@@ -280,13 +263,23 @@ class User implements UserInterface, \Serializable{
     }
 
     /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
      * Set userRole
      *
      * @param \Pixi\CoreBundle\Entity\UserRole $userRole
      *
      * @return User
      */
-    public function setUserRole(UserRole $userRole = null)
+    public function setUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole = null)
     {
         $this->userRole = $userRole;
 
@@ -301,5 +294,53 @@ class User implements UserInterface, \Serializable{
     public function getUserRole()
     {
         return $this->userRole;
+    }
+
+    /**
+     * Set created
+     *
+     * @param \DateTime $created
+     *
+     * @return User
+     */
+    public function setCreated($created)
+    {
+        $this->created = $created;
+
+        return $this;
+    }
+
+    /**
+     * Get created
+     *
+     * @return \DateTime
+     */
+    public function getCreated()
+    {
+        return $this->created;
+    }
+
+    /**
+     * Set updated
+     *
+     * @param \DateTime $updated
+     *
+     * @return User
+     */
+    public function setUpdated($updated)
+    {
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

@@ -15,8 +15,6 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToMany;
-use Doctrine\ORM\Mapping\JoinTable;
-use Doctrine\ORM\Mapping\OneToMany;
 
 use Pixi\CoreBundle\Entity\Permission;
 
@@ -26,42 +24,23 @@ use Pixi\CoreBundle\Entity\Permission;
  * @Entity
  * @Table(name="user_roles")
  */
-class UserRole {
-    /**
-     * @var
-     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class UserRole extends PixiModel{
     /**
      * @var
      * @Column(type="string", length=100)
      */
     protected $name;
     /**
-     * @ManyToMany(targetEntity="Permission", inversedBy="userRoles")
+     * @ManyToMany(targetEntity="Permission")
      */
     protected $permissions;
-    /**
-     * @OneToMany(targetEntity="User", mappedBy="userRole")
-     */
-    protected $users;
 
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->permissions = new ArrayCollection();
-    }
-
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
+        $this->permissions = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -86,6 +65,16 @@ class UserRole {
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -123,36 +112,50 @@ class UserRole {
     }
 
     /**
-     * Add user
+     * Set created
      *
-     * @param \Pixi\CoreBundle\Entity\User $user
+     * @param \DateTime $created
      *
      * @return UserRole
      */
-    public function addUser(\Pixi\CoreBundle\Entity\User $user)
+    public function setCreated($created)
     {
-        $this->users[] = $user;
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Get created
      *
-     * @param \Pixi\CoreBundle\Entity\User $user
+     * @return \DateTime
      */
-    public function removeUser(\Pixi\CoreBundle\Entity\User $user)
+    public function getCreated()
     {
-        $this->users->removeElement($user);
+        return $this->created;
     }
 
     /**
-     * Get users
+     * Set updated
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \DateTime $updated
+     *
+     * @return UserRole
      */
-    public function getUsers()
+    public function setUpdated($updated)
     {
-        return $this->users;
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }

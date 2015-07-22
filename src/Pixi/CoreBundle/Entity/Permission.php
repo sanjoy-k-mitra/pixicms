@@ -22,12 +22,7 @@ use Doctrine\ORM\Mapping\JoinTable;
  * @Entity
  * @Table(name="permissions")
  */
-class Permission {
-    /**
-     * @var
-     * @Id @Column(type="integer") @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+class Permission extends PixiModel{
     /**
      * @var
      * @Column(name="permission_key", type="string", length=100, unique=true)
@@ -39,25 +34,12 @@ class Permission {
      */
     protected $name;
     /**
-     * @ManyToMany(targetEntity="UserRole", mappedBy="permissions")
-     *
-     */
-    protected $userRoles;
-    /**
      * @var
      * @Column(type="string", length=255, nullable=true)
      */
     protected $description;
 
-    /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
+
 
     /**
      * Set key
@@ -130,45 +112,62 @@ class Permission {
     {
         return $this->description;
     }
+
     /**
-     * Constructor
+     * Get id
+     *
+     * @return integer
      */
-    public function __construct()
+    public function getId()
     {
-        $this->userRoles = new \Doctrine\Common\Collections\ArrayCollection();
+        return $this->id;
     }
 
     /**
-     * Add userRole
+     * Set created
      *
-     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
+     * @param \DateTime $created
      *
      * @return Permission
      */
-    public function addUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole)
+    public function setCreated($created)
     {
-        $this->userRoles[] = $userRole;
+        $this->created = $created;
 
         return $this;
     }
 
     /**
-     * Remove userRole
+     * Get created
      *
-     * @param \Pixi\CoreBundle\Entity\UserRole $userRole
+     * @return \DateTime
      */
-    public function removeUserRole(\Pixi\CoreBundle\Entity\UserRole $userRole)
+    public function getCreated()
     {
-        $this->userRoles->removeElement($userRole);
+        return $this->created;
     }
 
     /**
-     * Get userRoles
+     * Set updated
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @param \DateTime $updated
+     *
+     * @return Permission
      */
-    public function getUserRoles()
+    public function setUpdated($updated)
     {
-        return $this->userRoles;
+        $this->updated = $updated;
+
+        return $this;
+    }
+
+    /**
+     * Get updated
+     *
+     * @return \DateTime
+     */
+    public function getUpdated()
+    {
+        return $this->updated;
     }
 }
