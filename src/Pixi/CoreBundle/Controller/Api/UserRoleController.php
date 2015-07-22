@@ -19,9 +19,8 @@ use Symfony\Component\Serializer\Serializer;
  * @package Pixi\CoreBundle\Controller\Api
  * @Route("api/userRole")
  */
-class UserRoleController extends RestController{
-
-    protected $ignoredProperties = array("userRoles", "userRole");
+class UserRoleController extends RestController
+{
 
     protected function getEntityClass()
     {

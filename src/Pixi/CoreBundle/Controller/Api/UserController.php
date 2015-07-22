@@ -8,21 +8,20 @@
 
 namespace Pixi\CoreBundle\Controller\Api;
 
-
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+
 
 /**
+ * Class UserController
+ * @package Pixi\CoreBundle\Controller\Api
  * @Route("api/user")
  */
 class UserController extends RestController{
 
-    protected $ignoredProperties = array("password", "users", "lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__");
-
-    protected function getEntityClass(){
+    protected function getEntityClass()
+    {
         return "PixiCoreBundle:User";
     }
-
 
 
 }

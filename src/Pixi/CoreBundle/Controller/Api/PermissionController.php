@@ -16,8 +16,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  * @package Pixi\CoreBundle\Controller\Api
  * @Route("api/permission")
  */
-class PermissionController extends RestController{
-    protected $ignoredProperties = array("permissions");
+class PermissionController extends RestController
+{
 
     protected function getEntityClass()
     {
