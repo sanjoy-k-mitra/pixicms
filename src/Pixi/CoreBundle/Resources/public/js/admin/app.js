@@ -9,7 +9,7 @@
                 events: true
             })
 
-            $urlRouterProvider.otherwise('/dashboard/home')
+            $urlRouterProvider.otherwise('/dashboard/template')
 
             $stateProvider
                 .state('dashboard', {
@@ -62,8 +62,8 @@
                         }
                     }
                 })
-                .state('dashboard.home',{
-                    url:'/home',
+                .state('dashboard.template',{
+                    url:'/template',
                     controller: 'MainCtrl',
                     templateUrl:'/bundles/pixicore/template/admin/dashboard/home.html',
                     resolve: {
