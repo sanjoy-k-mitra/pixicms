@@ -30,9 +30,21 @@ class LoadMessageData extends AbstractFixture implements OrderedFixtureInterface
         $manager->persist($message);
         $message = new Message();
         $message->setFrom($this->getReference("super-admin"));
+        $message->setTo($this->getReference("user"));
+        $message->setSubject("Contact Us if you need any help");
+        $message->setMessage("Please feel free to contact us via email anytime you like");
+        $manager->persist($message);
+        $message = new Message();
+        $message->setFrom($this->getReference("super-admin"));
         $message->setTo($this->getReference("admin"));
         $message->setSubject("Welcome To PixiCMS");
         $message->setMessage("On Behalf of the PixiCMS Team i thank you for joining PixiCMS");
+        $manager->persist($message);
+        $message = new Message();
+        $message->setFrom($this->getReference("super-admin"));
+        $message->setTo($this->getReference("admin"));
+        $message->setSubject("Contact Us if you need any help");
+        $message->setMessage("Please feel free to contact us via email anytime you like");
         $manager->persist($message);
         $manager->flush();
     }
