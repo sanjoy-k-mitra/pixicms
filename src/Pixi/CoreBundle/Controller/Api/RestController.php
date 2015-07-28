@@ -87,7 +87,9 @@ abstract class RestController extends Controller
      */
     public function create()
     {
-
+        $content = $this->get("request")->getContent();
+        $object = $this->serializer->deserialize($content, $this->getEntityClass(), "json");
+        $this->getDoctrine()->getManager()->persist($object);
     }
 
     /**
@@ -96,7 +98,9 @@ abstract class RestController extends Controller
      */
     public function update($id)
     {
-
+        $content = $this->get("request")->getContent();
+        $object = $this->serializer->deserialize($content, $this->getEntityClass(), "json");
+        $this->getDoctrine()->getManager()->persist($object);
     }
 
     /**
