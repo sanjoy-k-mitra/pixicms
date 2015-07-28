@@ -18,10 +18,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class UserController extends RestController{
 
-    protected function getEntityClass()
+    protected function getBundleEntity()
     {
         return "PixiCoreBundle:User";
     }
 
-
+    public function getEntityClass(){
+        return "Pixi\\CoreBundle\\Entity\\User";
+    }
 }

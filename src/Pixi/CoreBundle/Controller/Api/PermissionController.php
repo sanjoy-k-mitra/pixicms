@@ -19,8 +19,12 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 class PermissionController extends RestController
 {
 
-    protected function getEntityClass()
+    protected function getBundleEntity()
     {
         return "PixiCoreBundle:Permission";
+    }
+
+    protected function getEntityClass(){
+        return "Pixi\\CoreBundle\\Entity\\Permission";
     }
 }

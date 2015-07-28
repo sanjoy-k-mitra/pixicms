@@ -9,12 +9,13 @@
 namespace Pixi\CoreBundle\Controller\Api;
 
 
+use Pixi\CoreBundle\Utils\JsonEncode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Pixi\CoreBundle\Utils\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -31,6 +32,8 @@ abstract class RestController extends Controller
 
     protected $ignoredProperties = array("lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__", "password", "salt");
 
+    abstract protected function getBundleEntity();
+
     abstract protected function getEntityClass();
 
     public function __construct()
@@ -41,6 +44,13 @@ abstract class RestController extends Controller
         $this->normalizer->setCircularReferenceHandler(function ($object) {
             return array("id" => $object->getId());
         });
+        $dateTimeCallback = function ($dateTime) {
+            return $dateTime instanceof \DateTime ? $dateTime->format(\DateTime::ISO8601) : '';
+        };
+        $this->normalizer->setCallbacks(array(
+            'created' => $dateTimeCallback,
+            'updated' => $dateTimeCallback
+        ));
         $this->serializer = new Serializer(array($this->normalizer), array(new JsonEncoder(), new XmlEncoder()));
     }
 
@@ -59,7 +69,7 @@ abstract class RestController extends Controller
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()
                     ->getRepository(
-                        $this->getEntityClass()
+                        $this->getBundleEntity()
                     )->findAll(),
                 'json'
             )
@@ -75,7 +85,7 @@ abstract class RestController extends Controller
         return new Response(
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()
-                    ->getRepository($this->getEntityClass())->find($id)
+                    ->getRepository($this->getBundleEntity())->find($id)
                 , "json"
             )
         );
@@ -89,7 +99,10 @@ abstract class RestController extends Controller
     {
         $content = $this->get("request")->getContent();
         $object = $this->serializer->deserialize($content, $this->getEntityClass(), "json");
-        $this->getDoctrine()->getManager()->persist($object);
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($object);
+        $em->flush();
+        return new Response($this->serializer->serialize($object, 'json'));
     }
 
     /**
@@ -99,7 +112,7 @@ abstract class RestController extends Controller
     public function update($id)
     {
         $content = $this->get("request")->getContent();
-        $object = $this->serializer->deserialize($content, $this->getEntityClass(), "json");
+        $object = $this->serializer->deserialize($content, $this->getBundleEntity(), "json");
         $this->getDoctrine()->getManager()->persist($object);
     }
 
@@ -110,9 +123,9 @@ abstract class RestController extends Controller
     public function delete($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $entry = $em->getRepository($this->getEntityClass())->find($id);
+        $entry = $em->getRepository($this->getBundleEntity())->find($id);
         $em->remove($entry);
-
+        $em->flush();
         return new Response(
             $this->serializer->serialize(
                 $entry,

@@ -19,9 +19,13 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
  */
 class MessageController extends RestController{
 
-    protected function getEntityClass()
+    protected function getBundleEntity()
     {
         return "PixiCoreBundle:Message";
+    }
+
+    public function getEntityClass(){
+        return "Pixi\\CoreBundle\\Entity\\Message";
     }
 
     public function __construct(){

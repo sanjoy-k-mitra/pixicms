@@ -22,9 +22,13 @@ use Symfony\Component\Serializer\Serializer;
 class UserRoleController extends RestController
 {
 
-    protected function getEntityClass()
+    protected function getBundleEntity()
     {
         return "PixiCoreBundle:UserRole";
+    }
+
+    public function getEntityClass(){
+        return "Pixi\\CoreBundle\\Entity\\UserRole";
     }
 
 }
