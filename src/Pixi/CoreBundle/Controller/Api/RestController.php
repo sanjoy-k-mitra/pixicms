@@ -149,9 +149,51 @@ abstract class RestController extends Controller
      */
     public function update($id)
     {
-        $content = $this->get("request")->getContent();
-        $object = $this->serializer->deserialize($content, $this->getBundleEntity(), "json");
-        $this->getDoctrine()->getManager()->persist($object);
+        $em = $this->getDoctrine()->getManager();
+        $content = json_decode($this->get("request")->getContent());
+        $refClass = new \ReflectionClass($this->getEntityClass());
+        $object = $em->getRepository($this->getEntityClass())->find($id);
+        foreach($refClass->getProperties() as $refProperty){
+            $propertyName = $refProperty->getName();
+            if(empty($content->$propertyName)){
+                continue;
+            }
+            foreach($this->annotationReader->getPropertyAnnotations($refProperty) as $annotation){
+                if ($annotation instanceof OneToMany || $annotation instanceof ManyToMany) {
+                    $contentValue = $content->$propertyName;
+                    $targetEntity = $annotation->targetEntity;
+                    if (strstr($targetEntity, "\\") == false) {
+                        $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;
+                    }
+                    $targetRepository = $em->getRepository($targetEntity);
+                    $dbValues = array();
+                    foreach($contentValue as $value){
+                        $dbVal = $targetRepository->find($value->id);
+                        array_push($dbValues, $dbVal);
+                    }
+                    $content->$propertyName = $dbValues;
+                    break;
+                } elseif ($annotation instanceof OneToOne || $annotation instanceof ManyToOne) {
+                    $contentValue = $content->$propertyName;
+                    $targetEntity = $annotation->targetEntity;
+                    if (strstr($targetEntity, "\\") == false) {
+                        $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;
+                    }
+                    $targetRepository = $em->getRepository($targetEntity);
+                    $dbValue = $targetRepository->find($contentValue->id);
+                    $content->$propertyName = $dbValue;
+                    break;
+                }else{
+                    $setter = $refClass->getMethod("set".ucfirst($propertyName));
+                    $setter->invoke($object, $content->$propertyName);
+                }
+            }
+        }
+
+//        $object = $this->normalizer->denormalize($content, $this->getEntityClass(), "json");
+        $em->persist($object);
+        $em->flush();
+        return new Response($this->serializer->serialize($object, "json"));
     }
 
     /**
