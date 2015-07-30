@@ -1,5 +1,5 @@
 pixi_core:
-    resource: "../../src/Pixi/CoreBundle/Controller/"
+    resource: "@PixiCoreBundle/Controller/"
     type:     annotation
     prefix:   /
 

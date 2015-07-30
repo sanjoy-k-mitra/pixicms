@@ -9,13 +9,20 @@
 namespace Pixi\CoreBundle\Controller\Api;
 
 
+use Doctrine\Common\Annotations\AnnotationReader;
+use Doctrine\Common\Annotations\IndexedReader;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\ManyToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\OneToOne;
 use Pixi\CoreBundle\Utils\JsonEncode;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
-use Pixi\CoreBundle\Utils\JsonEncoder;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
 use Symfony\Component\Serializer\Serializer;
@@ -29,6 +36,7 @@ abstract class RestController extends Controller
 {
     protected $serializer;
     protected $normalizer;
+    protected $annotationReader;
 
     protected $ignoredProperties = array("lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__", "password", "salt");
 
@@ -52,11 +60,7 @@ abstract class RestController extends Controller
             'updated' => $dateTimeCallback
         ));
         $this->serializer = new Serializer(array($this->normalizer), array(new JsonEncoder(), new XmlEncoder()));
-    }
-
-    public function getIgnoredProperties()
-    {
-        return $this->$ignoredProperties;
+        $this->annotationReader = new AnnotationReader();
     }
 
     /**
@@ -97,9 +101,43 @@ abstract class RestController extends Controller
      */
     public function create()
     {
-        $content = $this->get("request")->getContent();
-        $object = $this->serializer->deserialize($content, $this->getEntityClass(), "json");
-        $em = $this->getDoctrine()->getEntityManager();
+        $em = $this->getDoctrine()->getManager();
+        $content = json_decode($this->get("request")->getContent());
+        $refClass = new \ReflectionClass($this->getEntityClass());
+        foreach ($refClass->getProperties() as $refProperty) {
+            $annotations = $this->annotationReader->getPropertyAnnotations($refProperty);
+            foreach ($annotations as $annotation) {
+                if ($annotation instanceof OneToMany || $annotation instanceof ManyToMany) {
+                    $propertyName = $refProperty->getName();
+                    $contentValue = $content->$propertyName;
+                    $targetEntity = $annotation->targetEntity;
+                    if (strstr($targetEntity, "\\") == false) {
+                        $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;
+                    }
+                    $targetRepository = $em->getRepository($targetEntity);
+                    $dbValues = array();
+                    foreach($contentValue as $value){
+                        $dbVal = $targetRepository->find($value->id);
+                        array_push($dbValues, $dbVal);
+                    }
+                    $content->$propertyName = $dbValues;
+                    break;
+                } elseif ($annotation instanceof OneToOne || $annotation instanceof ManyToOne) {
+                    $propertyName = $refProperty->getName();
+                    $contentValue = $content->$propertyName;
+                    $targetEntity = $annotation->targetEntity;
+                    if (strstr($targetEntity, "\\") == false) {
+                        $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;
+                    }
+                    $targetRepository = $em->getRepository($targetEntity);
+                    $dbValue = $targetRepository->find($contentValue->id);
+                    $content->$propertyName = $dbValue;
+                    break;
+                }
+            }
+        }
+        $object = $this->normalizer->denormalize($content, $this->getEntityClass(), "json");
+
         $em->persist($object);
         $em->flush();
         return new Response($this->serializer->serialize($object, 'json'));
