@@ -80,6 +80,10 @@
                         }
                     }
                 })
+                .state('dashboard.permission', {
+                    template:"<resource-list name='Permissions' endpoint='/api/permission/'/>",
+                    url:'/permissions'
+                })
                 .state('dashboard.form',{
                     templateUrl:'/bundles/pixicore/template/admin/form.html',
                     url:'/form'
