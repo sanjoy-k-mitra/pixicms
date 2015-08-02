@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{resource.name}}</h1>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th data-ng-repeat="column in resource.columns">{{column | uppercase}}</th>
+            <th>OPTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="item in items">
+            <td data-ng-repeat="column in resource.columns">
+                {{item[column]}}
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" ng-click="view(item)">View</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Action Menu</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li ng-click="view(item)"><a>View</a></li>
+                        <li ng-click="edit(item)"><a>Edit</a></li>
+                        <li ng-click="delete(item)"><a>Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr></tr>
+        </tfoot>
+    </table>
+</div>
+<div class="row">
+<resource-form title="{{resource.name}}" visible="showForm"></resource-form>
+<resource-prompt title="{{resource.name}}" visible="showPrompt"></resource-prompt>
+</div>
