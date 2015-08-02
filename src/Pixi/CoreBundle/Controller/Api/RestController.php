@@ -9,9 +9,11 @@
 namespace Pixi\CoreBundle\Controller\Api;
 
 
+use Doctrine\Common\Annotations\Annotation;
 use Doctrine\Common\Annotations\AnnotationReader;
 use Doctrine\Common\Annotations\IndexedReader;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\ManyToMany;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Doctrine\ORM\Mapping\OneToMany;
@@ -36,6 +38,8 @@ abstract class RestController extends Controller
 {
     protected $serializer;
     protected $normalizer;
+    protected $jsonEncoder;
+    protected $xmlEncoder;
     protected $annotationReader;
 
     protected $ignoredProperties = array("lazyPropertiesDefaults", "__initializer__", "__cloner__", "__isInitialized__", "password", "salt");
@@ -49,6 +53,8 @@ abstract class RestController extends Controller
         $this->normalizer = new ObjectNormalizer();
         $this->normalizer->setIgnoredAttributes($this->ignoredProperties);
         $this->normalizer->setCircularReferenceLimit(1);
+        $this->jsonEncoder = new JsonEncoder();
+        $this->xmlEncoder = new XmlEncoder();
         $this->normalizer->setCircularReferenceHandler(function ($object) {
             return array("id" => $object->getId());
         });
@@ -59,8 +65,29 @@ abstract class RestController extends Controller
             'created' => $dateTimeCallback,
             'updated' => $dateTimeCallback
         ));
-        $this->serializer = new Serializer(array($this->normalizer), array(new JsonEncoder(), new XmlEncoder()));
+        $this->serializer = new Serializer(array($this->normalizer), array($this->jsonEncoder, $this->xmlEncoder));
         $this->annotationReader = new AnnotationReader();
+    }
+
+    /**
+     * @return Response
+     * @Route("/")
+     * @Method("OPTIONS")
+     */
+    public function options(){
+        $reflectionClass = new \ReflectionClass($this->getEntityClass());
+        $options = array();
+        foreach($reflectionClass->getProperties() as $reflectionProperty){
+            $name = $reflectionProperty->getName();
+            foreach($this->annotationReader->getPropertyAnnotations($reflectionProperty) as $annotation){
+                if(in_array(get_class($annotation), array('Doctrine\ORM\Mapping\Column','Doctrine\ORM\Mapping\OneToMany','Doctrine\ORM\Mapping\ManyToOne','Doctrine\ORM\Mapping\OneToOne','Doctrine\ORM\Mapping\ManyToMany'))){
+                    $columnOptions = $this->serializer->serialize($annotation, "json");
+                    break;
+                }
+            }
+            $options[$name] = $columnOptions;
+        }
+        return new Response($this->jsonEncoder->encode($options, "json"));
     }
 
     /**
