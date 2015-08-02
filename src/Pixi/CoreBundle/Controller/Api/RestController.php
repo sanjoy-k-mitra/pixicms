@@ -81,13 +81,15 @@ abstract class RestController extends Controller
             $name = $reflectionProperty->getName();
             foreach($this->annotationReader->getPropertyAnnotations($reflectionProperty) as $annotation){
                 if(in_array(get_class($annotation), array('Doctrine\ORM\Mapping\Column','Doctrine\ORM\Mapping\OneToMany','Doctrine\ORM\Mapping\ManyToOne','Doctrine\ORM\Mapping\OneToOne','Doctrine\ORM\Mapping\ManyToMany'))){
-                    $columnOptions = $this->serializer->serialize($annotation, "json");
+                    $columnOptions = $this->serializer->normalize($annotation, "json");
                     break;
                 }
             }
             $options[$name] = $columnOptions;
         }
-        return new Response($this->jsonEncoder->encode($options, "json"));
+        $response = new Response($this->serializer->serialize($options,"json"));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 
     /**
@@ -96,7 +98,7 @@ abstract class RestController extends Controller
      */
     public function index()
     {
-        return new Response(
+        $response = new Response(
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()
                     ->getRepository(
@@ -105,6 +107,8 @@ abstract class RestController extends Controller
                 'json'
             )
         );
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 
     /**
@@ -113,13 +117,15 @@ abstract class RestController extends Controller
      */
     public function item($id)
     {
-        return new Response(
+        $response = new Response(
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()
                     ->getRepository($this->getBundleEntity())->find($id)
                 , "json"
             )
         );
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 
     /**
@@ -167,7 +173,9 @@ abstract class RestController extends Controller
 
         $em->persist($object);
         $em->flush();
-        return new Response($this->serializer->serialize($object, 'json'));
+        $response = new Response($this->serializer->serialize($object, 'json'));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 
     /**
@@ -220,7 +228,9 @@ abstract class RestController extends Controller
 //        $object = $this->normalizer->denormalize($content, $this->getEntityClass(), "json");
         $em->persist($object);
         $em->flush();
-        return new Response($this->serializer->serialize($object, "json"));
+        $response = new Response($this->serializer->serialize($object, "json"));
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 
     /**
@@ -233,11 +243,13 @@ abstract class RestController extends Controller
         $entry = $em->getRepository($this->getBundleEntity())->find($id);
         $em->remove($entry);
         $em->flush();
-        return new Response(
+        $response =  new Response(
             $this->serializer->serialize(
                 $entry,
                 "json"
             )
         );
+        $response->headers->set("Content-Type", "application/json");
+        return $response;
     }
 }
