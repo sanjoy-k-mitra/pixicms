@@ -11,12 +11,17 @@ var app = angular.module('pixiAdminApp')
         $http({method:"OPTIONS", url: $scope.resource.endpointUrl}).then(function(resp){
             $scope.resource.options = resp.data;
             for(column in $scope.resource.options){
+                console.log(column, $scope.resource.options[column]);
                 $scope.resource.columns.push(column);
             }
         })
         $http.get($scope.resource.endpointUrl).success(function(resp){
             $scope.items = resp;
         });
+
+        $scope.log = function(){
+            console.log.call(this, arguments);
+        };
         $scope.showForm = false;
         $scope.showPrompt = false;
         $scope.view = function(item){
