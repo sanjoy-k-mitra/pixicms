@@ -2,35 +2,55 @@
  * Created by sanjoy on 8/3/15.
  */
 var app = angular.module('pixiAdminApp')
-    .controller("ResourceListController", ["$scope", "$http", "$attrs", function ($scope, $http, $attrs) {
+    .controller("ResourceController", ["$scope", "$http", "$rootScope", "$attrs", function ($scope, $http, $rootScope, $attrs) {
+        if(!$rootScope[$attrs.name]){
+            $rootScope[$attrs.name] = {
+                columns: [],
+                dateColumns: []
+            };
+        }
         $scope.resource = {
             name:$attrs.title || $attrs.name,
-            endpointUrl:$attrs.endpoint
+            endpointUrl:$attrs.endpoint,
+            columns: $rootScope[$attrs.name].columns,
+            dateColumns: $rootScope[$attrs.name].dateColumns,
+            options: $rootScope[$attrs.name].options,
+            items: $rootScope[$attrs.name].items
         }
-        $scope.resource.columns = [];
-        $http({method:"OPTIONS", url: $scope.resource.endpointUrl}).then(function(resp){
-            $scope.resource.options = resp.data;
-            for(column in $scope.resource.options){
-                console.log(column, $scope.resource.options[column]);
-                $scope.resource.columns.push(column);
-            }
-        })
-        $http.get($scope.resource.endpointUrl).success(function(resp){
-            $scope.items = resp;
-        });
+        if(!$rootScope[$attrs.name].options){
+            $http({method:"OPTIONS", url: $scope.resource.endpointUrl}).then(function(resp){
+                $scope.resource.options = $rootScope[$attrs.name].options = resp.data;
+                for(column in $scope.resource.options){
+                    if($scope.resource.options[column].type == "date" || $scope.resource.options[column].type == "datetime"){
+                        $rootScope[$attrs.name].dateColumns.push(column);
+                    }
+                    $rootScope[$attrs.name].columns.push(column);
+                }
+            })
+        }
+        if(!$rootScope[$attrs.name].items){
+            $scope.items = $rootScope[$attrs.name].items = [];
+            $http.get($scope.resource.endpointUrl).success(function(resp){
+                angular.forEach(resp, function(o){
+                    angular.forEach($rootScope[$attrs.name].dateColumns, function(c){
+                        o[c] = new Date(o[c]);
+                    })
+                    $rootScope[$attrs.name].items.push(o);
+                })
+            });
+        }
 
-        $scope.log = function(){
-            console.log.call(this, arguments);
-        };
         $scope.showForm = false;
+        $scope.editForm = false;
         $scope.showPrompt = false;
+
         $scope.view = function(item){
             $scope.item = item;
             $scope.showForm = true;
         }
         $scope.edit = function(item){
             $scope.item = item;
-            $scope.showForm = true;
+            $scope.editForm = true;
         }
         $scope.delete = function(item){
             $scope.item = item;
@@ -42,10 +62,7 @@ var app = angular.module('pixiAdminApp')
             restrict: "E",
             scope: {},
             templateUrl: "/bundles/pixicore/template/admin/resource/list.html",
-            link: function($scope, $element, $attrs){
-                console.log("ResourceList directive invoked");
-            },
-            controller: "ResourceListController"
+            controller: "ResourceController"
         }
     })
     .directive("resourceForm", function(){
