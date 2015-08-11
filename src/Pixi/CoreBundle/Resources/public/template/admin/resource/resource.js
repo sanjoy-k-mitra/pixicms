@@ -56,6 +56,13 @@ var app = angular.module('pixiAdminApp')
             $scope.item = item;
             $scope.showPrompt = true;
         }
+
+        $scope.getColumnOptions = function(column){
+            var columnOptions = $scope.resource.options[column],
+                targetEntity = columnOptions.targetEntity,
+                entries =  $rootScope[targetEntity].items;
+            return entries;
+        }
     }])
     .directive("resourceList", function () {
         return {

@@ -22,15 +22,15 @@
                     templateUrl:'/bundles/pixicore/template/admin/dashboard/home.html',
                 })
                 .state('dashboard.permission', {
-                    template:"<resource-list name='permission' title='Permissions' endpoint='/api/permission/'/>",
+                    template:"<resource-list name='Permission' title='Permissions' endpoint='/api/permission/'/>",
                     url:'/permissions'
                 })
                 .state('dashboard.role', {
-                    template:"<resource-list name='role' title='Roles' endpoint='/api/userRole/'/>",
+                    template:"<resource-list name='Role' title='Roles' endpoint='/api/userRole/'/>",
                     url:'/userRoles'
                 })
                 .state('dashboard.user', {
-                    template:"<resource-list name='user' title='Users' endpoint='/api/user/'/>",
+                    template:"<resource-list name='User' title='Users' endpoint='/api/user/'/>",
                     url:'/users'
                 })
                 .state('dashboard.form',{

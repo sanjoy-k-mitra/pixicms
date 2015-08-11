@@ -10,7 +10,8 @@
                     <div data-ng-repeat="column in resource.columns" data-ng-init="isRelation = resource.options[column].targetEntity ? true : false; columnType=resource.options[column].type">
                         <div  class="form-group" data-ng-if="isRelation">
                             <label>{{column | uppercase}}</label>
-                            <ng-select class="form-control" data-ng-class="{disabled: showForm}" name="{{column}}" data-ng-model="item[column]"></ng-select>
+                            <select class="form-control" data-ng-if="columnType=='Object'" name="{{column}}" data-ng-model="item[column]" data-ng-options="r.displayName || r.name for r in getColumnOptions(column) track by r.id"></select>
+                            <select class="form-control" data-ng-if="columnType=='List'" multiple="multiple" name="{{column}}" data-ng-model="item[column]" data-ng-options="r.displayName || r.name for r in getColumnOptions(column) track by r.id"></select>
                             <!--<input type="text" class="form-control" name="{{column}}" data-ng-model="item[column]">-->
                         </div>
                         <div class="form-group" data-ng-if="!isRelation" data-ng-switch on="columnType" data-ng-click="log(item[column])">
