@@ -80,8 +80,19 @@ abstract class RestController extends Controller
         foreach($reflectionClass->getProperties() as $reflectionProperty){
             $name = $reflectionProperty->getName();
             foreach($this->annotationReader->getPropertyAnnotations($reflectionProperty) as $annotation){
-                if(in_array(get_class($annotation), array('Doctrine\ORM\Mapping\Column','Doctrine\ORM\Mapping\OneToMany','Doctrine\ORM\Mapping\ManyToOne','Doctrine\ORM\Mapping\OneToOne','Doctrine\ORM\Mapping\ManyToMany'))){
+                $annotationClass = get_class($annotation);
+                if($annotationClass == 'Doctrine\ORM\Mapping\Column'){
                     $columnOptions = $this->serializer->normalize($annotation, "json");
+                    break;
+                }
+                elseif(in_array($annotationClass, array('Doctrine\ORM\Mapping\OneToMany','Doctrine\ORM\Mapping\ManyToMany'))){
+                    $columnOptions = $this->serializer->normalize($annotation, "json");
+                    $columnOptions['type'] = 'List';
+                    break;
+                }
+                elseif(in_array($annotationClass, array('Doctrine\ORM\Mapping\ManyToOne','Doctrine\ORM\Mapping\OneToOne'))){
+                    $columnOptions = $this->serializer->normalize($annotation, "json");
+                    $columnOptions['type'] = 'Object';
                     break;
                 }
             }
