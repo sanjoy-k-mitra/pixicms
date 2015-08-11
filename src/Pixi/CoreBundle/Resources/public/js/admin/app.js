@@ -2,7 +2,7 @@
  * Created by sanjoy on 6/26/15.
  */
 (function () {
-    var app = angular.module('pixiAdminApp', ['sbAdminApp'])
+    var app = angular.module('pixiAdminApp', ['ui.router', 'oc.lazyLoad', 'ui.bootstrap'])
         .config(['$stateProvider', '$urlRouterProvider', '$ocLazyLoadProvider', function ($stateProvider, $urlRouterProvider, $ocLazyLoadProvider) {
             $ocLazyLoadProvider.config({
                 debug: true,
@@ -23,7 +23,8 @@
                                     files: [
                                         '/bundles/pixicore/scripts/directives/header/header.js',
                                         '/bundles/pixicore/scripts/directives/header/header-notification/header-notification.js',
-                                        '/bundles/pixicore/scripts/directives/sidebar/sidebar.js'
+                                        '/bundles/pixicore/scripts/directives/sidebar/sidebar.js',
+                                        '/bundles/pixicore/template/admin/resource/resource.js'
                                     ]
                                 })
                             $ocLazyLoad.load(
@@ -83,6 +84,14 @@
                 .state('dashboard.permission', {
                     template:"<resource-list name='Permissions' endpoint='/api/permission/'/>",
                     url:'/permissions'
+                })
+                .state('dashboard.role', {
+                    template:"<resource-list name='Roles' endpoint='/api/userRole/'/>",
+                    url:'/userRoles'
+                })
+                .state('dashboard.user', {
+                    template:"<resource-list name='Users' endpoint='/api/user/'/>",
+                    url:'/users'
                 })
                 .state('dashboard.form',{
                     templateUrl:'/bundles/pixicore/template/admin/form.html',
