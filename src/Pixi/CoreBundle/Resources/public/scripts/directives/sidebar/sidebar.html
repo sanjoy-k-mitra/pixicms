@@ -5,8 +5,8 @@
             <li ui-sref-active="active">
                 <a ui-sref="dashboard.home"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
-            <li ng-class="{active:collapseVar==1}" ng-click="check(1)">
-                <a ><i class="fa fa-lock fa-fw"></i> Access Control<span class="fa arrow"></span> </a>
+            <li ng-class="{active:collapseVar==1}">
+                <a ng-click="check(1)"><i class="fa fa-lock fa-fw"></i> Access Control<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level" ng-show="isChecked(1)">
                     <li ng-class="{active: selectedMenu=='user'}">
                         <a ui-sref="dashboard.user" ng-click="selectedMenu='user'">Users</a>
