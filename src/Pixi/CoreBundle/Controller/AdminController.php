@@ -24,6 +24,7 @@ class AdminController extends Controller{
      * @Template()
      */
     public function indexAction(){
+        $jsFiles = $this->get("bundle_service")->getAdminJsFiles();
         return array();
     }
 

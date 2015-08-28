@@ -1,1 +1,5 @@
 services:
+  bundle_service:
+    class: Pixi\CoreBundle\Services\BundleService
+    arguments: [@event_dispatcher]
+
