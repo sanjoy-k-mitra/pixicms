@@ -12,7 +12,7 @@
         "php": ">=5.3.9",
         "symfony/symfony": "*",
         "doctrine/orm": "*",
-        "doctrine/dbal": "*",
+        "doctrine/dbal": "~2.4.4",
         "doctrine/doctrine-bundle": "*",
         "symfony/assetic-bundle": "*",
         "symfony/swiftmailer-bundle": "*",
@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "sensio/generator-bundle": "*",
-        "doctrine/doctrine-fixtures-bundle": "*"
+        "doctrine/doctrine-fixtures-bundle": "*",
+        "heroku/heroku-buildpack-php": "*"
     },
     "scripts": {
         "post-root-package-install": [

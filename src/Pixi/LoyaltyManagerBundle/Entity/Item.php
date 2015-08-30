@@ -1,27 +1,26 @@
 <?php
-
 /**
  * Created by PhpStorm.
  * User: sanjoy
- * Date: 8/30/15
- * Time: 8:30 PM
+ * Date: 8/31/15
+ * Time: 3:13 AM
  */
+
 namespace Pixi\LoyaltyManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
-use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Id;
+use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
-use Pixi\CoreBundle\Entity\PixiModel;
 
 /**
- * Class Offer
+ * Class Item
  * @package Pixi\LoyaltyManagerBundle\Entity
  * @Entity
- * @Table(name="offers")
+ * @Table(name="items")
  */
-class Offer extends PixiModel
+class Item
 {
     /**
      * @var
@@ -32,14 +31,15 @@ class Offer extends PixiModel
     protected $id;
     /**
      * @var
-     * @Column(type="string", length=100)
+     * @Column(type="string")
      */
     protected $name;
     /**
      * @var
-     * @Column(type="text", nullable=true)
+     * @Column(type="string", length=255)
+     * @GeneratedValue(strategy="AUTO")
      */
-    protected $description;
+    protected $code;
     /**
      * @var
      * @Column(type="integer")
