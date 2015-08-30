@@ -1,0 +1,25 @@
+(function () {
+var app = angular.module('pixiAdminApp', ['ui.router','ngResource', 'pixi.admin'])
+.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+
+$urlRouterProvider.otherwise('/dashboard')
+
+$stateProvider
+.state('dashboard', {
+url: '/dashboard',
+template: 'Hello World',
+})
+.state('permission', {
+template:"<resource-list name='Permission' title='Permissions' endpoint='/api/permission/'/>",
+url:'/permissions'
+})
+.state('role', {
+template:"<resource-list name='Role' title='Roles' endpoint='/api/userRole/'/>",
+url:'/userRoles'
+})
+.state('user', {
+template:"<resource-list name='User' title='Users' endpoint='/api/user/'/>",
+url:'/users'
+})
+}])
+})();

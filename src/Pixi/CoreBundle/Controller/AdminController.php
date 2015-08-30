@@ -28,4 +28,20 @@ class AdminController extends Controller{
         return array();
     }
 
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/app.js", name="adminAppJs")
+     */
+    public function appJsAction(){
+        return $this->render("PixiCoreBundle:Admin:app.js.twig", array());
+    }
+
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     * @Route("/admin/sidebar", name="adminSidebar")
+     */
+    public function sidebarAction(){
+        return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array());
+    }
+
 }

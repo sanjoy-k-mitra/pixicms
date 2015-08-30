@@ -1,26 +1,16 @@
 <!DOCTYPE html>
-<html data-ng-app="pixiAdminApp" data-ng-controller="ApplicationController">
+<html data-ng-app="pixiAdminApp">
 <head>
     <meta charset="UTF-8"/>
     <title>
         {% block title %}
-            {% raw %}
-                {{ applicationTitle }}
-            {% endraw %}
+            Admin Panel | PixiCMS
         {% endblock %}
     </title>
-
+    <link type="text/css" rel="stylesheet" href="/bundles/pixicore/lib/bootstrap/dist/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="/bundles/pixicore/lib/fontawesome/css/font-awesome.min.css">
     {% stylesheets
-    'bundles/pixicore/lib/bootstrap/dist/css/bootstrap.min.css' filter='cssrewrite'
-    'bundles/pixicore/lib/fontawesome/css/font-awesome.min.css' filter='cssrewrite'
-    'bundles/pixicore/lib/metisMenu/dist/metisMenu.min.css' filter='cssrewrite'
-    'bundles/pixicore/lib/angular-loading-bar/build/loading-bar.min.css' filter='cssrewrite'
-    'bundles/pixicore/lib/angular-chart.js/dist/angular-chart.css' filter='cssrewrite'
-    'bundles/pixicore/lib/angular-toggle-switch/angular-toggle-switch.css' filter='cssrewrite'
-    'bundles/pixicore/css/main.css'
-    'bundles/pixicore/css/sb-admin-2.css'
-    'bundles/pixicore/css/timeline.css'
-    'bundles/pixicore/css/custom.css'
+    'bundles/pixicore/css/admin/*'
     filter='cssrewrite' %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
@@ -28,54 +18,29 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
-
-    <div>
-        <div ui-view>
-            {% block body %}
-            {% endblock %}
-        </div>
-    </div>
+    {% block body %}
+    {% endblock %}
 
 
 
-{% javascripts
-'bundles/pixicore/lib/jquery/dist/jquery.min.js'
-'bundles/pixicore/lib/angular/angular.min.js'
-'bundles/pixicore/lib/bootstrap/dist/js/bootstrap.min.js'
-'bundles/pixicore/lib/angular-ui-router/release/angular-ui-router.min.js'
-'bundles/pixicore/lib/json3/lib/json3.min.js'
-'bundles/pixicore/lib/oclazyload/dist/ocLazyLoad.min.js'
-'bundles/pixicore/lib/angular-loading-bar/build/loading-bar.min.js'
-'bundles/pixicore/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
-'bundles/pixicore/lib/metisMenu/dist/metisMenu.min.js'
-'bundles/pixicore/lib/Chart.js/Chart.min.js'
-'bundles/pixicore/scripts/template-module.js'
-'bundles/pixicore/js/admin/app.js'
+    {% javascripts
+    '@PixiCoreBundle/Resources/public/lib/jquery/dist/jquery.min.js'
+    '@PixiCoreBundle/Resources/public/lib/angular/angular.min.js'
+    '@PixiCoreBundle/Resources/public/lib/bootstrap/dist/js/bootstrap.min.js'
+    '@PixiCoreBundle/Resources/public/lib/angular-ui-router/release/angular-ui-router.min.js'
+    '@PixiCoreBundle/Resources/public/lib/angular-resource/angular-resource.js'
 
-'bundles/pixicore/lib/angular-toggle-switch/angular-toggle-switch.min.js'
-'bundles/pixicore/lib/angular-animate/angular-animate.js'
-'bundles/pixicore/lib/angular-cookies/angular-cookies.js'
-'bundles/pixicore/lib/angular-resource/angular-resource.js'
-'bundles/pixicore/lib/angular-sanitize/angular-sanitize.js'
-'bundles/pixicore/lib/angular-touch/angular-touch.js'
-'bundles/pixicore/lib/angular-chart.js/dist/angular-chart.min.js'
-'bundles/pixicore/scripts/controllers/chartContoller.js'
+    'bundles/pixicore/js/admin/admin.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
-'bundles/pixicore/scripts/directives/header/header.js'
-'bundles/pixicore/scripts/directives/header/header-notification/header-notification.js'
-'bundles/pixicore/scripts/directives/sidebar/sidebar.js'
-'bundles/pixicore/scripts/controllers/main.js'
-'bundles/pixicore/scripts/directives/timeline/timeline.js'
-'bundles/pixicore/scripts/directives/notifications/notifications.js'
-'bundles/pixicore/scripts/directives/chat/chat.js'
-'bundles/pixicore/scripts/directives/dashboard/stats/stats.js'
-
-'bundles/pixicore/template/admin/resource/resource.js'
-
-
-%}
-<script type="text/javascript" src="{{ asset_url }}"></script>
-{% endjavascripts %}
+    <script type="text/javascript" src="/admin/app.js"/>
+    {% javascripts
+    'bundles/pixicore/js/admin/admin.js'
+    %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 {% block bundlejs %}{% endblock %}
 </body>
