@@ -41,6 +41,9 @@
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
+    {% for js in plugable_js_files %}
+        <script type="text/javascript" src="{{ js }}"></script>
+    {% endfor %}
 
 {% block bundlejs %}{% endblock %}
 </body>

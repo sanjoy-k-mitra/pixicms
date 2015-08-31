@@ -1,1 +1,6 @@
 services:
+    kernel.listener.loyalty_manager_service:
+        class: Pixi\LoyaltyManagerBundle\Services\LoyaltyManagerService
+        arguments: [@event_dispatcher]
+        tags:
+            - { name: kernel.event_listener, event: pixi.admin_js_files, method: adminJsFiles }

@@ -24,8 +24,8 @@ class AdminController extends Controller{
      * @Template()
      */
     public function indexAction(){
-        $jsFiles = $this->get("bundle_service")->getAdminJsFiles();
-        return array();
+        $jsFiles = $this->get("bundle_service")->triggerEvent('pixi.admin_js_files')->data;
+        return array('plugable_js_files'=>$jsFiles);
     }
 
     /**
@@ -33,7 +33,8 @@ class AdminController extends Controller{
      * @Route("/admin/app.js", name="adminAppJs")
      */
     public function appJsAction(){
-        return $this->render("PixiCoreBundle:Admin:app.js.twig", array());
+        $otherAdminJsFiles = $this->get("bundle_service")->triggerEvent('pixi.admin_js_files');
+        return $this->render("PixiCoreBundle:Admin:app.js.twig", array('plugable_js_file' => $otherAdminJsFiles));
     }
 
     /**
