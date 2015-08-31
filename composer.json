@@ -20,10 +20,10 @@
         "sensio/distribution-bundle": "*",
         "sensio/framework-extra-bundle": "*",
         "incenteev/composer-parameter-handler": "*",
+        "doctrine/doctrine-fixtures-bundle": "*",
         "sensio/generator-bundle": "*"
     },
     "require-dev": {
-        "doctrine/doctrine-fixtures-bundle": "*",
         "heroku/heroku-buildpack-php": "*"
     },
     "scripts": {
