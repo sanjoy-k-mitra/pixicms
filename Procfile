@@ -1,1 +1,2 @@
-web: sh herokuSetup.sh
+worker: sh herokuSetup.sh
+web: bin/heroku-php-apache2 web/
