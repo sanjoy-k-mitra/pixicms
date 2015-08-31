@@ -24,4 +24,18 @@ class LoyaltyManagerService
         array_push($event->data, '/bundles/pixiloyaltymanager/js/loyalty_manager.js');
     }
 
+    public function adminRoutes(PixiEvent $event){
+        $event->data =array_merge($event->data, array(
+            "item"=>'/bundles/pixiloyaltymanager/template/item.html'
+        ));
+    }
+
+    public function adminSidebar(PixiEvent $event){
+        array_push($event->data, array(
+            'sref'=>'item',
+            'title'=>'Item',
+            'imageClass'=>'fa fa-key fa-fw'
+        ));
+    }
+
 }

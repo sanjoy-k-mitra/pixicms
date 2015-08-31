@@ -21,5 +21,11 @@ url:'/userRoles'
 template:"<resource-list name='User' title='Users' endpoint='/api/user/'/>",
 url:'/users'
 })
+{% for route,templateUrl in plugable_routes %}
+    .state('{{ route }}', {
+        templateUrl:'{{ templateUrl }}',
+        url: '/{{ route }}'
+    })
+{% endfor %}
 }])
 })();
