@@ -2,7 +2,7 @@
  * Created by sanjoy on 8/31/15.
  */
 
-angular.module("pixi.admin", ["ui.bootstrap", "ngResource"])
+angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
     .controller("ResourceController", ResourceController)
 
 ResourceController.$inject = ["$scope", "$http", "$resource", "$modal"];
@@ -21,7 +21,7 @@ var baseUrl = window.location.protocol + "://" + window.location.host;
 function ResourceController($scope, $http, $resource){
 
     this.Model = $resource(this.endpointUrl + "/:id", {id: "@id"});
-    var object = this.Model.get({id: 1}, function(){
+    var object = this.Model.get({id: 2}, function(){
         object.name = "Sanjoy Kumar Mitra";
         object.$save();
     })

@@ -19,10 +19,9 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}"/>
 </head>
 <body>
+
     {% block body %}
     {% endblock %}
-
-
 
     {% javascripts
     '@PixiCoreBundle/Resources/public/lib/jquery/dist/jquery.min.js'
@@ -32,21 +31,22 @@
     '@PixiCoreBundle/Resources/public/lib/angular-resource/angular-resource.js'
     '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap.min.js'
     '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
-    'bundles/pixicore/js/admin/admin.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    <script type="text/javascript" src="/admin/app.js"/>
+
     {% javascripts
-    'bundles/pixicore/js/admin/admin.js'
-    'bundles/pixicore/js/admin/resource.js'
+    'bundles/pixicore/js/admin/pixi-resource.js'
+    'bundles/pixicore/js/admin/pixi-admin.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
     {% for js in plugable_js_files %}
         <script type="text/javascript" src="{{ js }}"></script>
     {% endfor %}
+
+    <script type="text/javascript" src="/admin/app.js"></script>
 
 {% block bundlejs %}{% endblock %}
 </body>

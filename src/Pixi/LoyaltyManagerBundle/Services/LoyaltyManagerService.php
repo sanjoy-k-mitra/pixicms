@@ -26,7 +26,7 @@ class LoyaltyManagerService
 
     public function adminRoutes(PixiEvent $event){
         $event->data =array_merge($event->data, array(
-            "item"=>'/bundles/pixiloyaltymanager/template/item.html'
+            "item"=>"/bundles/pixiloyaltymanager/template/item.html"
         ));
     }
 
