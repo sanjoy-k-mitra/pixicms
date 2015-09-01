@@ -1,6 +1,6 @@
 <?php
 namespace Pixi\CoreBundle\Services;
-use Pixi\CoreBundle\Events\ResourceListEvent;
+use Pixi\CoreBundle\Events\PixiEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
@@ -17,9 +17,11 @@ class BundleService
         $this->dispatcher = $dispatcher;
     }
 
-     public function getAdminJsFiles(){
-         $resourceListEvent = new ResourceListEvent();
-         $this->dispatcher->dispatch('pixi.admin_js_files' ,$resourceListEvent);
-         return $resourceListEvent->getResources();
-     }
+    public function triggerEvent($eventName, PixiEvent $event = null){
+        if(is_null($event)){
+            $event = new PixiEvent();
+        }
+        $this->dispatcher->dispatch($eventName, $event);
+        return $event;
+    }
 }

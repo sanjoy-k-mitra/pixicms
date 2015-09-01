@@ -37,6 +37,7 @@ class Item
     /**
      * @var
      * @Column(type="string", length=255)
+     * @GeneratedValue(strategy="AUTO")
      */
     protected $code;
     /**
@@ -49,7 +50,7 @@ class Item
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -60,7 +61,6 @@ class Item
      * Set name
      *
      * @param string $name
-     *
      * @return Item
      */
     public function setName($name)
@@ -73,7 +73,7 @@ class Item
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -84,7 +84,6 @@ class Item
      * Set code
      *
      * @param string $code
-     *
      * @return Item
      */
     public function setCode($code)
@@ -97,7 +96,7 @@ class Item
     /**
      * Get code
      *
-     * @return string
+     * @return string 
      */
     public function getCode()
     {
@@ -108,7 +107,6 @@ class Item
      * Set point
      *
      * @param integer $point
-     *
      * @return Item
      */
     public function setPoint($point)
@@ -121,7 +119,7 @@ class Item
     /**
      * Get point
      *
-     * @return integer
+     * @return integer 
      */
     public function getPoint()
     {

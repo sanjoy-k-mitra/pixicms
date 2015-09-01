@@ -24,8 +24,8 @@ class AdminController extends Controller{
      * @Template()
      */
     public function indexAction(){
-        $jsFiles = $this->get("bundle_service")->getAdminJsFiles();
-        return array();
+        $jsFiles = $this->get("bundle_service")->triggerEvent('pixi.admin_js_files')->data;
+        return array('plugable_js_files'=>$jsFiles);
     }
 
     /**
@@ -33,7 +33,8 @@ class AdminController extends Controller{
      * @Route("/admin/app.js", name="adminAppJs")
      */
     public function appJsAction(){
-        return $this->render("PixiCoreBundle:Admin:app.js.twig", array());
+        $plugable_routes = $this->get("bundle_service")->triggerEvent('pixi.admin_routes')->data;
+        return $this->render("PixiCoreBundle:Admin:app.js.twig", array('plugable_routes' => $plugable_routes));
     }
 
     /**
@@ -41,7 +42,8 @@ class AdminController extends Controller{
      * @Route("/admin/sidebar", name="adminSidebar")
      */
     public function sidebarAction(){
-        return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array());
+        $plugable_sidebar_entry = $this->get("bundle_service")->triggerEvent("pixi.admin_sidebar_entries")->data;
+        return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array("plugable_sidebar_entry"=>$plugable_sidebar_entry));
     }
 
 }
