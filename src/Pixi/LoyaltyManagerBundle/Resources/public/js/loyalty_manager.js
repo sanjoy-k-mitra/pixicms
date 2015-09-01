@@ -9,12 +9,7 @@ ItemController.$inject = ["$scope", "$http"]
 
 
 function ItemController($scope, $http) {
-    $scope.columns = [
-        {
-            name: "id",
-            displayName: "ID",
-            type: "integer"
-        },
+    $scope.editColumns = [
         {
             name: "code",
             displayName: "Code",
@@ -29,7 +24,14 @@ function ItemController($scope, $http) {
             name: "point",
             displayName: "Point",
             type: "integer"
-        },
-
-    ]
+        }
+    ];
+    $scope.viewColumns = $scope.editColumns;
+    $scope.columns = [
+        {
+            name: "id",
+            displayName: "ID",
+            type: "integer"
+        }
+    ].concat($scope.viewColumns)
 }
