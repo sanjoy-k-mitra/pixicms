@@ -6,9 +6,10 @@ angular.module("pixi.admin")
 
 OfferController.$inject = ["$scope", "$http", "$resource", "$modal"]
 
-$.extend(OfferController.prototype, {
-    endpointUrl: "http://10.10.0.1:8000/api/offer",
-    columns: [
+
+
+function OfferController($scope, $http, $resource, $modal) {
+    $scope.columns = [
         {
             name: "id",
             displayName: "ID",
@@ -31,8 +32,4 @@ $.extend(OfferController.prototype, {
         },
 
     ]
-});
-
-function OfferController($scope, $http, $resource, $modal) {
-    //ResourceController.call(this, $scope, $http, $resource, $modal);
 }

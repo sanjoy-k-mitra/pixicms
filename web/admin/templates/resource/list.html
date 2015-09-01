@@ -1,10 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title></title>
-</head>
-<body>
-
-</body>
-</html>
+<div class="row">
+    <div class="col-lg-12">
+        <h1 class="page-header">{{title}}</h1>
+    </div>
+</div>
+<div class="row">
+    <table class="table table-bordered table-striped table-hover">
+        <thead>
+        <tr>
+            <th data-ng-repeat="column in columns">{{ column.displayName || (column | uppercase)}}</th>
+            <th>OPTIONS</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-ng-repeat="item in items">
+            <td data-ng-repeat="column in columns" data-ng-init="isRelation = column.targetEntity ? true : false;">
+                <div data-ng-if="isRelation && column.type == 'Object'">
+                    {{item[column.name].displayName || item[column].name}}
+                </div>
+                <div data-ng-if="isRelation && columnType == 'List'">
+                    <span data-ng-repeat="e in item[column.name]">[{{e.displayName || e.name}}]</span>
+                </div>
+                <div data-ng-if="!isRelation" data-ng-switch on="column.type">
+                    <span data-ng-switch-when="string">{{item[column.name] | limitTo: 150}}</span>
+                    <span data-ng-switch-when="datetime">{{item[column.name] | date:medium}}</span>
+                    <span data-ng-switch-default>{{item[column.name]}}</span>
+                </div>
+            </td>
+            <td>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default" data-ng-click="view(item)">View</button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <span class="caret"></span>
+                        <span class="sr-only">Action Menu</span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li data-ng-click="view(item)"><a>View</a></li>
+                        <li data-ng-click="edit(item)"><a>Edit</a></li>
+                        <li data-ng-click="delete(item)"><a>Delete</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr></tr>
+        </tfoot>
+    </table>
+</div>

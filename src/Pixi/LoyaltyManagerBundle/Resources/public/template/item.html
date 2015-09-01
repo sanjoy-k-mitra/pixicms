@@ -1,5 +1,5 @@
-<div >
-    <resource-list title="Items" endpoint="/api/item" columns="[id, name, code, point]"></resource-list>
+<div data-ng-controller="OfferController">
+    <resource-list title="Items" endpoint="/api/item" columns="columns"></resource-list>
     <resource-viewer title="Item" endpoint="/api/item" columns="[id, name, code, point]"></resource-viewer>
     <resource-editor title="Item" endpoint="/api/item" columns="[id, name, code, point]"></resource-editor>
 </div>
