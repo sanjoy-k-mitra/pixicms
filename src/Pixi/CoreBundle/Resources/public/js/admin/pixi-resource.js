@@ -4,54 +4,34 @@
 
 angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
     .controller("ResourceController", ResourceController)
-    .directive("resourceList", function(){
+    .directive("pixiResource", function(){
         return {
             restrict: "E",
             scope: {
                 title:"@",
+                listTitle:"@",
                 endpoint:"@",
                 columns:"="
             },
+            controller: "ResourceController",
             templateUrl:"templates/resource/list.html"
-        }
-    })
-    .directive("resourceViewer", function(){
-        return {
-            restrict: "E",
-            templateUrl: "templates/resource/view.html"
-        }
-    })
-    .directive("resourceEditor", function () {
-        return {
-            restrict: "E",
-            templateUrl: "templates/resource/edit.html"
         }
     })
 
 
 ResourceController.$inject = ["$scope", "$http", "$resource", "$modal"];
 
-ResourceController.prototype.endpointUrl = "http://localhost:8000/api/resource/"
-ResourceController.prototype.columns = [
-    {
-        name:"id",
-        displayName:"ID",
-        type: "integer"
-    }
-]
-
-var baseUrl = window.location.protocol + "://" + window.location.host;
-
-function ResourceController($scope, $http, $resource){
-    $scope.columns.forEach(function(i){
-        console.log(i);
+function ResourceController($scope, $http, $resource, $modal){
+    $http.get($scope.endpoint).success(function(items){
+        $scope.items = items;
     })
-
-
-    //this.Model = $resource(this.endpointUrl + "/:id", {id: "@id"});
-    //var object = this.Model.get({id: 2}, function(){
-    //    object.name = "Sanjoy Kumar Mitra";
-    //    object.$save();
-    //})
+    var model = $resource($scope.endpoint + "/:itemId", {itemId:"@id"});
+    $scope.viewItem = function(itemId){
+        model.get({itemId:itemId}, function(){
+            $modal.open({
+                templateUrl:"templates/resource/view.html"
+            })
+        })
+    }
 }
 

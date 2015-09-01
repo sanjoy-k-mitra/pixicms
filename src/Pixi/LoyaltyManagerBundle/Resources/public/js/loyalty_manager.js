@@ -2,13 +2,13 @@
  * Created by sanjoy on 8/31/15.
  */
 angular.module("pixi.admin")
-    .controller("OfferController", OfferController);
+    .controller("ItemController", ItemController);
 
-OfferController.$inject = ["$scope", "$http", "$resource", "$modal"]
+ItemController.$inject = ["$scope", "$http"]
 
 
 
-function OfferController($scope, $http, $resource, $modal) {
+function ItemController($scope, $http) {
     $scope.columns = [
         {
             name: "id",
@@ -16,14 +16,14 @@ function OfferController($scope, $http, $resource, $modal) {
             type: "integer"
         },
         {
+            name: "code",
+            displayName: "Code",
+            type: "text"
+        },
+        {
             name: "name",
             displayName: "Name",
             type: "string"
-        },
-        {
-            name: "description",
-            displayName: "Description",
-            type: "text"
         },
         {
             name: "point",
