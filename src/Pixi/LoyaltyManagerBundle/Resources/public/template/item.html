@@ -1,5 +1,6 @@
 <div >
-    <h1 data-ng-controller="OfferController">Hello Item</h1>
-    <sidebar></sidebar>
+    <resource-list title="Items" endpoint="/api/item" columns="[id, name, code, point]"></resource-list>
+    <resource-viewer title="Item" endpoint="/api/item" columns="[id, name, code, point]"></resource-viewer>
+    <resource-editor title="Item" endpoint="/api/item" columns="[id, name, code, point]"></resource-editor>
 </div>
 

@@ -34,5 +34,5 @@ $.extend(OfferController.prototype, {
 });
 
 function OfferController($scope, $http, $resource, $modal) {
-    ResourceController.call(this, $scope, $http, $resource, $modal);
+    //ResourceController.call(this, $scope, $http, $resource, $modal);
 }
