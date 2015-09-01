@@ -1,4 +1,4 @@
-angular.module('pixi.admin', [])
+angular.module('pixi.admin', ["ngResource", "ui.bootstrap"])
     .controller("SidebarController", ["$scope", "$http", function ($scope, $http) {
     $scope.selectedMenu = 'dashboard';
     $scope.collapseVar = 0;
@@ -22,7 +22,7 @@ angular.module('pixi.admin', [])
         else
             $scope.multiCollapseVar = y;
     };
-}])
+    }])
     .directive('sidebar', ['$location', function () {
         return {
             templateUrl: '/admin/sidebar',

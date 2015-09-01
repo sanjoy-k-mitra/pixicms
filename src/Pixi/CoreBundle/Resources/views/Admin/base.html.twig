@@ -11,6 +11,7 @@
     <link type="text/css" rel="stylesheet" href="/bundles/pixicore/lib/fontawesome/css/font-awesome.min.css">
     {% stylesheets
     'bundles/pixicore/css/admin/*'
+    'bundles/pixicore/lib/angular-bootstrap/ui-bootstrap-csp.css'
     filter='cssrewrite' %}
     <link rel="stylesheet" type="text/css" href="{{ asset_url }}">
     {% endstylesheets %}
@@ -29,7 +30,8 @@
     '@PixiCoreBundle/Resources/public/lib/bootstrap/dist/js/bootstrap.min.js'
     '@PixiCoreBundle/Resources/public/lib/angular-ui-router/release/angular-ui-router.min.js'
     '@PixiCoreBundle/Resources/public/lib/angular-resource/angular-resource.js'
-
+    '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap.min.js'
+    '@PixiCoreBundle/Resources/public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
     'bundles/pixicore/js/admin/admin.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
@@ -38,6 +40,7 @@
     <script type="text/javascript" src="/admin/app.js"/>
     {% javascripts
     'bundles/pixicore/js/admin/admin.js'
+    'bundles/pixicore/js/admin/resource.js'
     %}
         <script type="text/javascript" src="{{ asset_url }}"></script>
     {% endjavascripts %}
