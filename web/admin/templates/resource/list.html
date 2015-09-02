@@ -1,7 +1,18 @@
 <div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header">{{listTitle || title}}</h1>
-    </div>
+    <h1 class="page-header">{{listTitle || title}}</h1>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <form role="search" class="navbar-form navbar-left">
+                <div class="input-group form-group">
+                    <span class="input-group-addon" id="search-icon"><i class="fa fa-search"></i></span>
+                    <input type="text" class="form-control" data-ng-model="searchText" placeholder="Search" area-describedby="search-icon">
+                </div>
+            </form>
+            <button type="button" data-ng-click="createItem()" class="btn btn-default navbar-btn"><i
+                        class="fa fa-plus"></i> Create {{title}}
+                </button>
+        </div>
+    </nav>
 </div>
 <div class="row">
     <table class="table table-bordered table-striped table-hover">
@@ -12,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr data-ng-repeat="item in items">
+        <tr data-ng-repeat="item in items | filter:searchText">
             <td data-ng-repeat="column in columns" data-ng-init="isRelation = column.targetEntity ? true : false;">
                 <div data-ng-if="isRelation && column.type == 'Object'">
                     {{item[column.name].displayName || item[column].name}}
@@ -28,8 +39,10 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-ng-click="viewItem(item.id)">View {{title}}</button>
-                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" class="btn btn-default" data-ng-click="viewItem(item.id)">View {{title}}
+                    </button>
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
                         <span class="caret"></span>
                         <span class="sr-only">Action Menu</span>
                     </button>
