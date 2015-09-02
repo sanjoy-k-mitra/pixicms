@@ -8,6 +8,11 @@
 
 namespace Pixi\CoreBundle\Controller;
 
+use Pixi\CoreBundle\Events\Menu;
+use Pixi\CoreBundle\Events\MenuEvent;
+use Pixi\CoreBundle\Events\MenuItem;
+use Pixi\CoreBundle\Events\RouteEntry;
+use Pixi\CoreBundle\Events\RouteEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
@@ -24,7 +29,7 @@ class AdminController extends Controller{
      * @Template()
      */
     public function indexAction(){
-        $jsFiles = $this->get("bundle_service")->triggerEvent('pixi.admin_js_files')->data;
+        $jsFiles = $this->get("bundle_service")->triggerEvent('pixi.admin_js_files')->getData();
         return array('plugable_js_files'=>$jsFiles);
     }
 
@@ -33,8 +38,11 @@ class AdminController extends Controller{
      * @Route("/admin/app.js", name="adminAppJs")
      */
     public function appJsAction(){
-        $plugable_routes = $this->get("bundle_service")->triggerEvent('pixi.admin_routes')->data;
-        return $this->render("PixiCoreBundle:Admin:app.js.twig", array('plugable_routes' => $plugable_routes));
+        $routeEvent = new RouteEvent(array(
+            new RouteEntry('dashboard', '/dashboard', 'templates/dashboard.html')
+        ));
+        $routes = $this->get("bundle_service")->triggerEvent('pixi.admin_routes', $routeEvent)->getData();
+        return $this->render("PixiCoreBundle:Admin:app.js.twig", array('routes' => $routes));
     }
 
     /**
@@ -42,8 +50,10 @@ class AdminController extends Controller{
      * @Route("/admin/sidebar", name="adminSidebar")
      */
     public function sidebarAction(){
-        $plugable_sidebar_entry = $this->get("bundle_service")->triggerEvent("pixi.admin_sidebar_entries")->data;
-        return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array("plugable_sidebar_entry"=>$plugable_sidebar_entry));
+        $sidebarEvent = new MenuEvent();
+        $sidebarEvent->addChild(new MenuItem("Dashboard", "dashboard", "fa fa-dashboard"));
+        $sidebar_entries = $this->get("bundle_service")->triggerEvent("pixi.admin_sidebar_entries", $sidebarEvent)->getData()->getChildren();
+        return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array("sidebar_entries"=>$sidebar_entries));
     }
 
 }
