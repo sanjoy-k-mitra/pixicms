@@ -4,14 +4,10 @@ angular.module("pixiAdminApp", ["ui.router", "pixi.admin"])
 $urlRouterProvider.otherwise('dashboard')
 
 $stateProvider
-.state('dashboard', {
-url: '/dashboard',
-template: 'Hello World',
-})
-{% for route,templateUrl in plugable_routes %}
-    .state('{{ route }}', {
-        templateUrl:'{{templateUrl}}',
-        url: '/{{route}}'
+{% for route in routes %}
+    .state('{{ route.name }}', {
+        templateUrl:'{{route.path}}',
+        url: '{{ route.sref }}'
     })
 {% endfor %}
 }]);

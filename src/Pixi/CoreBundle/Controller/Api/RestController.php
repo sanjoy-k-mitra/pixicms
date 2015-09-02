@@ -112,7 +112,7 @@ abstract class RestController extends Controller
         $offset = $this->get('request')->get('offset');
         $limit = $this->get('request')->get('limit');
         $order = $this->get('request')->get('order') == null ? array() : $this->get('request')->get('order');
-        $query = $this->get('request')->get('query') == null ? array() : $this->get('request')->get('query');
+//        $query = $this->get('request')->get('query') == null ? array() : $this->get('request')->get('query');
         $response = new Response(
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()

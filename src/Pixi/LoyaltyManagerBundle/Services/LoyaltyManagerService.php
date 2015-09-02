@@ -9,7 +9,12 @@
 namespace Pixi\LoyaltyManagerBundle\Services;
 
 
+use Pixi\CoreBundle\Events\Menu;
+use Pixi\CoreBundle\Events\MenuEvent;
+use Pixi\CoreBundle\Events\MenuItem;
 use Pixi\CoreBundle\Events\PixiEvent;
+use Pixi\CoreBundle\Events\RouteEntry;
+use Pixi\CoreBundle\Events\RouteEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 class LoyaltyManagerService
@@ -21,21 +26,21 @@ class LoyaltyManagerService
     }
 
     public function adminJsFiles(PixiEvent $event){
-        array_push($event->data, '/bundles/pixiloyaltymanager/js/loyalty_manager.js');
+        $event->addData('/bundles/pixiloyaltymanager/js/loyalty_manager.js');
     }
 
-    public function adminRoutes(PixiEvent $event){
-        $event->data =array_merge($event->data, array(
-            "item"=>"/bundles/pixiloyaltymanager/template/item.html"
-        ));
+    public function adminRoutes(RouteEvent $event){
+        $event->addData(new RouteEntry('item', '/item', "/bundles/pixiloyaltymanager/template/item.html"));
+        $event->addData(new RouteEntry('offer', '/offer', "/bundles/pixiloyaltymanager/template/offer.html"));
+        $event->addData(new RouteEntry('shop', '/shop', "/bundles/pixiloyaltymanager/template/shop.html"));
     }
 
-    public function adminSidebar(PixiEvent $event){
-        array_push($event->data, array(
-            'sref'=>'item',
-            'title'=>'Item',
-            'imageClass'=>'fa fa-key fa-fw'
-        ));
+    public function adminSidebar(MenuEvent $event){
+        $event->addChild(new Menu(array(
+            new MenuItem("Item", "item", "fa fa-cube fa-fw"),
+            new MenuItem("Offer", "offer", "fa fa-certificate fa-fw"),
+            new MenuItem("Shop", "shop", "fa fa-shopping-cart fa-fw"),
+        ), "Loyalty Manager", null, "fa fa-gift fa-fw"));
     }
 
 }

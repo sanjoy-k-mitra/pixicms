@@ -14,9 +14,10 @@
             <div class="form-group" data-ng-if="!isRelation" data-ng-switch on="column.type">
                 <label>{{column.displayName || (column.name | uppercase) }}</label>
                 <input class="form-control" type="number" data-ng-switch-when="integer" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <input class="form-control" type="number" data-ng-switch-when="float" name="{{column.name}}" data-ng-model="item[column.name]"/>
                 <input class="form-control" type="date" data-ng-switch-when="date" data-ng-init="item[column.name] = new Date(item[column.name])" name="{{column.name}}" data-ng-model="item[column.name]"/>
                 <input class="form-control" type="datetime-local" data-ng-switch-when="datetime" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <checkbox class="form-control" type="number" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <checkbox class="form-control" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]"/>
                 <input class="form-control" type="text" data-ng-switch-default name="{{column.name}}" data-ng-model="item[column.name]"/>
             </div>
         </div>

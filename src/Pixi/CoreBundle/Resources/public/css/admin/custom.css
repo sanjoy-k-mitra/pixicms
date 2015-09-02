@@ -1,3 +1,19 @@
 li a{
     cursor: pointer;
 }
+
+.sidebar .nav .nav li {
+   border-bottom: 0!important;
+}
+
+.sidebar .nav > li > .nav > li > a {
+    padding-left: 37px;
+}
+
+.sidebar .nav > li > .nav{
+    display: none;
+}
+
+.sidebar .nav > li.active > .nav{
+    display: block;
+}

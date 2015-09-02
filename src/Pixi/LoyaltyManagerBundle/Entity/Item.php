@@ -13,22 +13,16 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Pixi\CoreBundle\Entity\PixiModel;
 
 /**
  * Class Item
  * @package Pixi\LoyaltyManagerBundle\Entity
  * @Entity
- * @Table(name="items")
+ * @Table(name="llm_items")
  */
-class Item
+class Item extends PixiModel
 {
-    /**
-     * @var
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
     /**
      * @var
      * @Column(type="string")
@@ -45,17 +39,6 @@ class Item
      * @Column(type="integer")
      */
     protected $point;
-
-
-    /**
-     * Get id
-     *
-     * @return integer 
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
 
     /**
      * Set name

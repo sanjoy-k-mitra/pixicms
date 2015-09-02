@@ -16,6 +16,7 @@ use Doctrine\ORM\Mapping\GeneratedValue;
 
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\ORM\Mapping\PreUpdate;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Class PixiModel
@@ -67,27 +68,11 @@ class PixiModel {
     }
 
     /**
-     * @param mixed $created
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-    }
-
-    /**
      * @return mixed
      */
     public function getUpdated()
     {
         return $this->updated;
-    }
-
-    /**
-     * @param mixed $updated
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
     }
 
     /**

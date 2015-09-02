@@ -1,32 +1,6 @@
 <div class="navbar-default sidebar" role="navigation">
     <div class="sidebar-nav navbar-collapse">
-        <ul class="nav in" id="side-menu">
-            <!--<sidebar-search></sidebar-search>-->
-            <li ui-sref-active="active">
-                <a ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
-            </li>
-            {% for entry in plugable_sidebar_entry %}
-                <li ui-sref-active="active">
-                    <a ui-sref="{{ entry.sref }}"><i class="{{ entry.imageClass }}"></i> {{ entry.title }}</a>
-                </li>
-            {% endfor %}
-            <li ng-class="{active:collapseVar==1}">
-                <a ng-click="check(1)"><i class="fa fa-lock fa-fw"></i> Access Control<span class="fa arrow"></span> </a>
-                <ul class="nav nav-second-level" ng-show="isChecked(1)">
-                    <li ng-class="{active: selectedMenu=='user'}">
-                        <a ui-sref="user" ng-click="selectedMenu='user'">Users</a>
-                    </li>
-                    <li ng-class="{active: selectedMenu=='role'}">
-                        <a ui-sref="role" ng-click="selectedMenu='role'">Roles</a>
-                    </li>
-                    <li ng-class="{active: selectedMenu=='permission'}">
-                        <a ui-sref="permission" ng-click="selectedMenu='permission'">Permissions</a>
-                    </li>
-
-                </ul>
-            </li>
-
-        </ul>
+        {% include 'PixiCoreBundle:Admin:menu_items.html.twig' with {'entries': sidebar_entries} %}
     </div>
     <!-- /.sidebar-collapse -->
 </div>
