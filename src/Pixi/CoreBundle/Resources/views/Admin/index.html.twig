@@ -16,7 +16,7 @@
                 <a class="navbar-brand" ui-sref="dashboard" >PixiCms Admin</a>
             </div>
             <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
+            <ul class="nav navbar-top-links navbar-right navbar-collapse">
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown">
                         <i class="fa fa-envelope fa-fw"></i>  <i class="fa fa-caret-down"></i>
@@ -224,12 +224,16 @@
                 <!-- /.dropdown -->
             </ul>
 
-            <sidebar></sidebar>
+
         </nav>
+
+        <div id="sidebar-wrapper">
+            <sidebar></sidebar>
+        </div>
 
         <div id="page-wrapper" style="min-height: 561px;">
 
-            <div ui-view></div>
+            <div class="container-fluid" ui-view></div>
 
         </div>
         <!-- /#page-wrapper -->
