@@ -47,7 +47,7 @@ class Menu extends MenuItem
      * @param MenuItem $children
      * @return $this
      */
-    public function addChildren(MenuItem $children){
+    public function addChildren(array $children){
         array_merge($this->children, $children);
         return $this;
     }

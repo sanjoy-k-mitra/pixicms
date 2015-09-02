@@ -1,0 +1,15 @@
+<ul class="nav">
+    {% for entry in entries %}
+        <li ui-sref-active="active" class="{{ entry.className }}">
+            {% if entry.children is defined %}
+                <a data-ng-click="open($event)"><i class="{{ entry.iconClass }}"></i> {{ entry.displayName }}<span class="fa arrow"></span> </a>
+
+                {% include 'PixiCoreBundle:Admin:menu_items.html.twig' with {'entries': entry.children} %}
+
+            {% else %}
+                <a ui-sref="{{ entry.action }}"><i class="{{ entry.iconClass }}"></i> {{ entry.displayName }}</a>
+            {% endif %}
+        </li>
+    {% endfor %}
+
+</ul>

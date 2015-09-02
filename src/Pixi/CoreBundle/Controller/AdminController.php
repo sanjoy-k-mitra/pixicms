@@ -52,7 +52,16 @@ class AdminController extends Controller{
     public function sidebarAction(){
         $sidebarEvent = new MenuEvent();
         $sidebarEvent->addChild(new MenuItem("Dashboard", "dashboard", "fa fa-dashboard"));
-        $sidebar_entries = $this->get("bundle_service")->triggerEvent("pixi.admin_sidebar_entries", $sidebarEvent)->getData()->getChildren();
+        $this->get("bundle_service")->triggerEvent("pixi.admin_sidebar_entries", $sidebarEvent);
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+            $aclMenu = new Menu(array(
+                new MenuItem("Users", 'user', 'fa fa-user'),
+                new MenuItem("Roles", 'role', 'fa fa-key'),
+                new MenuItem("Permissions", 'permission', 'fa fa-check')
+            ), "Access Control", null, "fa fa-lock fa-fw");
+            $sidebarEvent->addChild($aclMenu);
+        }
+        $sidebar_entries = $sidebarEvent->getData()->getChildren();
         return $this->render("PixiCoreBundle:Admin:sidebar.html.twig", array("sidebar_entries"=>$sidebar_entries));
     }
 

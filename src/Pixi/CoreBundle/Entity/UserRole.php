@@ -68,16 +68,6 @@ class UserRole extends PixiModel{
     }
 
     /**
-     * Get id
-     *
-     * @return integer
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
      * Add permission
      *
      * @param \Pixi\CoreBundle\Entity\Permission $permission
@@ -111,51 +101,4 @@ class UserRole extends PixiModel{
         return $this->permissions;
     }
 
-    /**
-     * Set created
-     *
-     * @param \DateTime $created
-     *
-     * @return UserRole
-     */
-    public function setCreated($created)
-    {
-        $this->created = $created;
-
-        return $this;
-    }
-
-    /**
-     * Get created
-     *
-     * @return \DateTime
-     */
-    public function getCreated()
-    {
-        return $this->created;
-    }
-
-    /**
-     * Set updated
-     *
-     * @param \DateTime $updated
-     *
-     * @return UserRole
-     */
-    public function setUpdated($updated)
-    {
-        $this->updated = $updated;
-
-        return $this;
-    }
-
-    /**
-     * Get updated
-     *
-     * @return \DateTime
-     */
-    public function getUpdated()
-    {
-        return $this->updated;
-    }
 }

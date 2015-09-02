@@ -1,27 +1,35 @@
 angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
     .controller("SidebarController", ["$scope", "$http", function ($scope, $http) {
-    $scope.selectedMenu = 'dashboard';
-    $scope.collapseVar = 0;
-    $scope.multiCollapseVar = 0;
+        $scope.open = function(event){
+            var li = $(event.target).parent('li');
+            li.toggleClass('active');
+        }
 
-    $scope.check = function (x) {
-
-        if (x == $scope.collapseVar)
-            $scope.collapseVar = 0;
-        else
-            $scope.collapseVar = x;
-    };
-    $scope.isChecked = function(x){
-        return $scope.collapseVar == x;
-    }
-
-    $scope.multiCheck = function (y) {
-
-        if (y == $scope.multiCollapseVar)
-            $scope.multiCollapseVar = 0;
-        else
-            $scope.multiCollapseVar = y;
-    };
+    }])
+    .controller("PermissionController", ["$scope", function($scope){
+        $scope.editColumns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            },
+            {
+                name: "key",
+                displayName: "Key",
+                type: "string"
+            },
+            {
+                name: "description",
+                displayName: "Description",
+                type: "string"
+            }
+        ]
+        $scope.viewColumns = $scope.editColumns;
+        $scope.columns = [{
+                name: "id",
+                displayName: "ID",
+                type: "integer"
+            }].concat($scope.editColumns);
     }])
     .directive('sidebar', ['$location', function () {
         return {

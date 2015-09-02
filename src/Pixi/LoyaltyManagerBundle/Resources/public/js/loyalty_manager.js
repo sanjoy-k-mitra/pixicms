@@ -4,11 +4,11 @@
 angular.module("pixi.admin")
     .controller("ItemController", ItemController);
 
-ItemController.$inject = ["$scope", "$http"]
+ItemController.$inject = ["$scope"]
 
 
 
-function ItemController($scope, $http) {
+function ItemController($scope) {
     $scope.editColumns = [
         {
             name: "code",
