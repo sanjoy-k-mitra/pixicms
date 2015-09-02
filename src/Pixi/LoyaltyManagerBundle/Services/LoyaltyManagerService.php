@@ -9,6 +9,7 @@
 namespace Pixi\LoyaltyManagerBundle\Services;
 
 
+use Pixi\CoreBundle\Events\Menu;
 use Pixi\CoreBundle\Events\MenuEvent;
 use Pixi\CoreBundle\Events\MenuItem;
 use Pixi\CoreBundle\Events\PixiEvent;
@@ -30,10 +31,16 @@ class LoyaltyManagerService
 
     public function adminRoutes(RouteEvent $event){
         $event->addData(new RouteEntry('item', '/item', "/bundles/pixiloyaltymanager/template/item.html"));
+        $event->addData(new RouteEntry('offer', '/offer', "/bundles/pixiloyaltymanager/template/offer.html"));
+        $event->addData(new RouteEntry('shop', '/shop', "/bundles/pixiloyaltymanager/template/shop.html"));
     }
 
     public function adminSidebar(MenuEvent $event){
-        $event->addChild(new MenuItem("Item", "item", "fa fa-key fa-fw"));
+        $event->addChild(new Menu(array(
+            new MenuItem("Item", "item", "fa fa-cube fa-fw"),
+            new MenuItem("Offer", "offer", "fa fa-certificate fa-fw"),
+            new MenuItem("Shop", "shop", "fa fa-shopping-cart fa-fw"),
+        ), "Loyalty Manager", null, "fa fa-gift fa-fw"));
     }
 
 }

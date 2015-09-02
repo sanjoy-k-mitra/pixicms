@@ -13,20 +13,20 @@ use Pixi\CoreBundle\Controller\Api\RestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class OfferController
+ * Class ShopController
  * @package Pixi\LoyaltyManagerBundle\Controller
- * @Route("api/offer")
+ * @Route("api/shop")
  */
-class OfferController extends RestController
+class ShopController extends RestController
 {
     protected function getBundleEntity()
     {
-        return "PixiLoyaltyManagerBundle:Offer";
+        return "PixiLoyaltyManagerBundle:Shop";
     }
 
     protected function getEntityClass()
     {
-        return "Pixi\\LoyaltyManagerBundle\\Entity\\Offer";
+        return "Pixi\\LoyaltyManagerBundle\\Entity\\Shop";
     }
 
 }

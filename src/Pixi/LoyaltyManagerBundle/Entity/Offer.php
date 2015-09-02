@@ -19,17 +19,10 @@ use Pixi\CoreBundle\Entity\PixiModel;
  * Class Offer
  * @package Pixi\LoyaltyManagerBundle\Entity
  * @Entity
- * @Table(name="offers")
+ * @Table(name="llm_offers")
  */
-class Offer
+class Offer extends PixiModel
 {
-    /**
-     * @var
-     * @Id
-     * @Column(type="integer")
-     * @GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
     /**
      * @var
      * @Column(type="string", length=100)
