@@ -2,18 +2,18 @@
  * Created by sanjoy on 8/31/15.
  */
 angular.module("pixi.admin")
-    .controller("OfferController", OfferController);
+    .controller("ItemController", ItemController);
 
-OfferController.$inject = ["$scope", "$http", "$resource", "$modal"]
+ItemController.$inject = ["$scope", "$http"]
 
 
 
-function OfferController($scope, $http, $resource, $modal) {
-    $scope.columns = [
+function ItemController($scope, $http) {
+    $scope.editColumns = [
         {
-            name: "id",
-            displayName: "ID",
-            type: "integer"
+            name: "code",
+            displayName: "Code",
+            type: "text"
         },
         {
             name: "name",
@@ -21,15 +21,17 @@ function OfferController($scope, $http, $resource, $modal) {
             type: "string"
         },
         {
-            name: "description",
-            displayName: "Description",
-            type: "text"
-        },
-        {
             name: "point",
             displayName: "Point",
             type: "integer"
-        },
-
-    ]
+        }
+    ];
+    $scope.viewColumns = $scope.editColumns;
+    $scope.columns = [
+        {
+            name: "id",
+            displayName: "ID",
+            type: "integer"
+        }
+    ].concat($scope.viewColumns)
 }

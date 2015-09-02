@@ -4,54 +4,86 @@
 
 angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
     .controller("ResourceController", ResourceController)
-    .directive("resourceList", function(){
+    .directive("pixiResource", function () {
         return {
             restrict: "E",
             scope: {
-                title:"@",
-                endpoint:"@",
-                columns:"="
+                title: "@",
+                listTitle: "@",
+                endpoint: "@",
+                columns: "=",
+                viewColumns: "=",
+                editColumns: "="
             },
-            templateUrl:"templates/resource/list.html"
-        }
-    })
-    .directive("resourceViewer", function(){
-        return {
-            restrict: "E",
-            templateUrl: "templates/resource/view.html"
-        }
-    })
-    .directive("resourceEditor", function () {
-        return {
-            restrict: "E",
-            templateUrl: "templates/resource/edit.html"
+            controller: "ResourceController",
+            templateUrl: "templates/resource/list.html"
         }
     })
 
 
 ResourceController.$inject = ["$scope", "$http", "$resource", "$modal"];
 
-ResourceController.prototype.endpointUrl = "http://localhost:8000/api/resource/"
-ResourceController.prototype.columns = [
-    {
-        name:"id",
-        displayName:"ID",
-        type: "integer"
+function ResourceController($scope, $http, $resource, $modal) {
+    if (!$scope.viewColumns) {
+        $scope.viewColumns = $scope.columns
     }
-]
+    if (!$scope.editColumns) {
+        $scope.editColumns = $scope.columns
+    }
+    $scope.pagination = {
+        offset: 0,
+        limit: 10
+    },
+        $scope.load = function () {
+            $http.get($scope.endpoint, {params: $scope.pagination}).success(function (items) {
+                $scope.items = items;
+            })
+        }
+    $scope.reload = $scope.load;
+    var model = $resource($scope.endpoint + "/:itemId", {itemId: "@id"});
 
-var baseUrl = window.location.protocol + "://" + window.location.host;
+    $scope.createItem = function () {
+        $scope.item = {};
+        $modal.open({
+            scope: $scope,
+            templateUrl: "templates/resource/edit.html"
+        }).result.then(function (item) {
+                model.save({}, item).$promise.then($scope.reload);
+            })
+    }
+    $scope.viewItem = function (itemId) {
+        model.get({itemId: itemId}, function (item, headers) {
+            $scope.item = item;
+            $modal.open({
+                scope: $scope,
+                templateUrl: "templates/resource/view.html",
+            })
+        })
+    }
+    $scope.editItem = function (itemId) {
+        model.get({itemId: itemId}, function (item, headers) {
+            $scope.item = item;
+            $modal.open({
+                scope: $scope,
+                templateUrl: "templates/resource/edit.html",
+            }).result.then(function (item) {
+                    model.save({itemId: item.id}, item).$promise.then($scope.reload)
+                })
+        })
+    }
+    $scope.deleteItem = function (itemId) {
+        model.get({itemId: itemId}, function (item, headers) {
+            $scope.item = item;
+            $modal.open({
+                scope: $scope,
+                templateUrl: "templates/resource/delete.html",
 
-function ResourceController($scope, $http, $resource){
-    $scope.columns.forEach(function(i){
-        console.log(i);
-    })
+            }).result.then(function (item) {
+                    model.delete({itemId: item.id}).$promise.then($scope.reload)
+                })
+        })
+    }
 
-
-    //this.Model = $resource(this.endpointUrl + "/:id", {id: "@id"});
-    //var object = this.Model.get({id: 2}, function(){
-    //    object.name = "Sanjoy Kumar Mitra";
-    //    object.$save();
-    //})
+    $scope.load();
 }
 
