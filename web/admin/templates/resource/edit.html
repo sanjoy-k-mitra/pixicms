@@ -1,0 +1,28 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="$dismiss('User Interaction')">&times;</button>
+    <h4 class="modal-title">{{item.id ? "Edit" : "Create"}} {{title}}</h4>
+</div>
+<div class="modal-body">
+    <form role="form">
+        <div data-ng-repeat="column in editColumns" data-ng-init="isRelation = column.targetEntity ? true : false">
+            <div  class="form-group" data-ng-if="isRelation">
+                <label>{{column.displayName || (column.name | uppercase)}}</label>
+                <select class="form-control" data-ng-if="column.type=='Object'" name="{{column.name}}" data-ng-model="item[column.name]"></select>
+                <select class="form-control" data-ng-if="column.type=='List'" multiple="multiple" name="{{column.name}}" data-ng-model="item[column.name]"></select>
+                <!--<input type="text" class="form-control" name="{{column}}" data-ng-model="item[column]">-->
+            </div>
+            <div class="form-group" data-ng-if="!isRelation" data-ng-switch on="column.type">
+                <label>{{column.displayName || (column.name | uppercase) }}</label>
+                <input class="form-control" type="number" data-ng-switch-when="integer" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <input class="form-control" type="date" data-ng-switch-when="date" data-ng-init="item[column.name] = new Date(item[column.name])" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <input class="form-control" type="datetime-local" data-ng-switch-when="datetime" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <checkbox class="form-control" type="number" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <input class="form-control" type="text" data-ng-switch-default name="{{column.name}}" data-ng-model="item[column.name]"/>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal-footer" >
+    <button type="button" class="btn btn-danger" data-ng-click="$close(item)">Save</button>
+    <button type="button" class="btn btn-primary" data-ng-click="$dismiss('User Interaction')">Cancel</button>
+</div>

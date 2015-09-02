@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="$close(item)">&times;</button>
+    <h4 class="modal-title">View {{title}}</h4>
+</div>
+<div class="modal-body">
+    <div data-ng-repeat="column in viewColumns"
+         data-ng-init="isRelation = column.targetEntity ? true : false;">
+        <div class="form-group" data-ng-if="isRelation">
+            <label>{{column.displayName || (column.name | uppercase)}}</label>
+            <span data-ng-if="column.type=='Object'"
+                    data-ng-model="item[column.name].displayName || item[column.name].displayName"></span>
+            <div data-ng-if="column.type=='List'" name="{{column.name}}">
+                <span data-ng-repeat="relation in item[column.name]">{{relation.displayName || relation.name}</span>
+            </div>
+            <!--<input type="text" class="form-control" name="{{column}}" data-ng-model="item[column]">-->
+        </div>
+        <div data-ng-if="!isRelation" data-ng-switch on="column.type"
+             data-ng-click="log(item[column.name])">
+            <label>{{column.displayName || (column | uppercase) }}</label>
+            <span data-ng-switch-when="string">{{item[column.name]}}</span>
+            <div data-ng-switch-when="text">{{item[column.name]}}</div>
+            <span data-ng-switch-when="datetime">{{item[column.name] | date:medium}}</span>
+            <span data-ng-switch-default>{{item[column.name]}}</span>
+        </div>
+    </div>
+
+</div>
+<div class="modal-footer" >
+    <button type="button" class="btn btn-primary" data-ng-click="$close(item)">Close</button>
+</div>

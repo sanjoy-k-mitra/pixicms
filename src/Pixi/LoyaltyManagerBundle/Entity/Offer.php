@@ -50,7 +50,7 @@ class Offer
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
@@ -61,7 +61,6 @@ class Offer
      * Set name
      *
      * @param string $name
-     *
      * @return Offer
      */
     public function setName($name)
@@ -74,7 +73,7 @@ class Offer
     /**
      * Get name
      *
-     * @return string
+     * @return string 
      */
     public function getName()
     {
@@ -85,7 +84,6 @@ class Offer
      * Set description
      *
      * @param string $description
-     *
      * @return Offer
      */
     public function setDescription($description)
@@ -98,7 +96,7 @@ class Offer
     /**
      * Get description
      *
-     * @return string
+     * @return string 
      */
     public function getDescription()
     {
@@ -109,7 +107,6 @@ class Offer
      * Set point
      *
      * @param integer $point
-     *
      * @return Offer
      */
     public function setPoint($point)
@@ -122,7 +119,7 @@ class Offer
     /**
      * Get point
      *
-     * @return integer
+     * @return integer 
      */
     public function getPoint()
     {

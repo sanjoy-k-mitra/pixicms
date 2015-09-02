@@ -71,7 +71,7 @@ abstract class RestController extends Controller
 
     /**
      * @return Response
-     * @Route("/")
+     * @Route("")
      * @Method("OPTIONS")
      */
     public function options(){
@@ -104,17 +104,21 @@ abstract class RestController extends Controller
     }
 
     /**
-     * @Route("/")
+     * @Route("")
      * @Method("GET")
      */
     public function index()
     {
+        $offset = $this->get('request')->get('offset');
+        $limit = $this->get('request')->get('limit');
+        $order = $this->get('request')->get('order') == null ? array() : $this->get('request')->get('order');
+        $query = $this->get('request')->get('query') == null ? array() : $this->get('request')->get('query');
         $response = new Response(
             $this->serializer->serialize(
                 $this->getDoctrine()->getManager()
                     ->getRepository(
                         $this->getBundleEntity()
-                    )->findAll(),
+                    )->findBy(array(), $order, $limit, $offset),
                 'json'
             )
         );
@@ -140,7 +144,7 @@ abstract class RestController extends Controller
     }
 
     /**
-     * @Route("/")
+     * @Route("")
      * @Method({"POST","PUT"})
      */
     public function create()
@@ -230,8 +234,11 @@ abstract class RestController extends Controller
                     $content->$propertyName = $dbValue;
                     break;
                 }else{
-                    $setter = $refClass->getMethod("set".ucfirst($propertyName));
-                    $setter->invoke($object, $content->$propertyName);
+                    $methodName = "set".ucfirst($propertyName);
+                    if($refClass->hasMethod($methodName)){
+                        $setter = $refClass->getMethod($methodName);
+                        $setter->invoke($object, $content->$propertyName);
+                    }
                 }
             }
         }

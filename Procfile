@@ -1,1 +1,1 @@
-web: sh herokuSetup.sh
+web: sh deployHeroku.sh

@@ -5,6 +5,11 @@
             <li ui-sref-active="active">
                 <a ui-sref="dashboard"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
             </li>
+            {% for entry in plugable_sidebar_entry %}
+                <li ui-sref-active="active">
+                    <a ui-sref="{{ entry.sref }}"><i class="{{ entry.imageClass }}"></i> {{ entry.title }}</a>
+                </li>
+            {% endfor %}
             <li ng-class="{active:collapseVar==1}">
                 <a ng-click="check(1)"><i class="fa fa-lock fa-fw"></i> Access Control<span class="fa arrow"></span> </a>
                 <ul class="nav nav-second-level" ng-show="isChecked(1)">
@@ -20,6 +25,7 @@
 
                 </ul>
             </li>
+
         </ul>
     </div>
     <!-- /.sidebar-collapse -->

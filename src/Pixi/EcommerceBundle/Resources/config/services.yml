@@ -1,6 +1,0 @@
-services:
-    kernel.listener.ecommerce_service:
-        class: Pixi\EcommerceBundle\Services\PixiEcommerceService
-        arguments: [@event_dispatcher]
-        tags:
-            - { name: kernel.event_listener, event: pixi.admin_js_files, method: adminJsFiles }
