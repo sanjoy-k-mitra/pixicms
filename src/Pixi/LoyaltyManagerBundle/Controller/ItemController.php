@@ -11,6 +11,8 @@ namespace Pixi\LoyaltyManagerBundle\Controller;
 
 use Pixi\CoreBundle\Controller\Api\RestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class ItemController
@@ -27,6 +29,18 @@ class ItemController extends RestController
     protected function getEntityClass()
     {
         return "Pixi\\LoyaltyManagerBundle\\Entity\\Item";
+    }
+
+    /**
+     * @return Response
+     * @Route("/searchCode")
+     */
+    public function searchCode()
+    {
+        $code = $this->get('request')->get('code');
+        $items = $this->getDoctrine()->getEntityManager()->getRepository($this->getBundleEntity())
+            ->findBy(array('code' => $code));
+        return new Response($this->serializer->serialize($items, 'json'));
     }
 
 }
