@@ -1,3 +1,8 @@
+pixi_hospital:
+    resource: "@PixiHospitalBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 pixi_loyalty_manager:
     resource: "@PixiLoyaltyManagerBundle/Controller/"
     type:     annotation
