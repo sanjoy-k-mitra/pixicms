@@ -18,7 +18,7 @@
     <table class="table table-bordered table-striped table-hover">
         <thead>
         <tr>
-            <th data-ng-repeat="column in columns">{{ column.displayName || (column | uppercase)}}</th>
+            <th data-ng-repeat="column in columns">{{ column.displayName || (column.name | uppercase)}}</th>
             <th>OPTIONS</th>
         </tr>
         </thead>
@@ -26,7 +26,7 @@
         <tr data-ng-repeat="item in items | filter:searchText">
             <td data-ng-repeat="column in columns" data-ng-init="isRelation = column.targetEntity ? true : false;">
                 <div data-ng-if="isRelation && column.type == 'Object'">
-                    {{item[column.name].displayName || item[column].name}}
+                    {{item[column.name].displayName || item[column.name].name}}
                 </div>
                 <div data-ng-if="isRelation && columnType == 'List'">
                     <span data-ng-repeat="e in item[column.name]">[{{e.displayName || e.name}}]</span>

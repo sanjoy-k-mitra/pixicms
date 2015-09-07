@@ -7,18 +7,23 @@
         <div data-ng-repeat="column in editColumns" data-ng-init="isRelation = column.targetEntity ? true : false">
             <div  class="form-group" data-ng-if="isRelation">
                 <label>{{column.displayName || (column.name | uppercase)}}</label>
-                <select class="form-control" data-ng-if="column.type=='Object'" name="{{column.name}}" data-ng-model="item[column.name]"></select>
+                <select class="form-control" data-ng-if="column.type=='Object'" name="{{column.name}}" data-ng-model="item[column.name]" data-ng-options="o.displayName || o.name for o in column.options track by o.id"></select>
                 <select class="form-control" data-ng-if="column.type=='List'" multiple="multiple" name="{{column.name}}" data-ng-model="item[column.name]"></select>
                 <!--<input type="text" class="form-control" name="{{column}}" data-ng-model="item[column]">-->
             </div>
             <div class="form-group" data-ng-if="!isRelation" data-ng-switch on="column.type">
                 <label>{{column.displayName || (column.name | uppercase) }}</label>
-                <input class="form-control" type="number" data-ng-switch-when="integer" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <input class="form-control" type="number" data-ng-switch-when="float" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <input class="form-control" type="date" data-ng-switch-when="date" data-ng-init="item[column.name] = new Date(item[column.name])" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <input class="form-control" type="datetime-local" data-ng-switch-when="datetime" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <checkbox class="form-control" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]"/>
-                <input class="form-control" type="text" data-ng-switch-default name="{{column.name}}" data-ng-model="item[column.name]"/>
+                <input class="form-control" type="number" data-ng-switch-when="integer" name="{{column.name}}" data-ng-model="item[column.name]">
+                <input class="form-control" type="number" data-ng-switch-when="float" name="{{column.name}}" data-ng-model="item[column.name]">
+                <input class="form-control" type="date" data-ng-switch-when="date" data-ng-init="item[column.name] = new Date(item[column.name])" name="{{column.name}}" data-ng-model="item[column.name]">
+                <div class="datetime-control" data-ng-switch-when="datetime">
+                    <div class="input-group col-sm-8" >
+                        <input type="text" datepicker-popup="yyyy-MM-dd hh:mm:ss" ng-model="item[column.name]" class="form-control" datepicker-options="dateOptions" show-weeks='false' is-open="column.isEditing" date-disabled="disabled(date, mode)" close-text="Close">
+                        <button class="input-group-addon" data-ng-click="editDate(column)"><i class="fa fa-calendar"></i></button>
+                    </div>
+                </div>
+                <checkbox class="form-control" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]"></checkbox>
+                <input class="form-control" type="text" data-ng-switch-default name="{{column.name}}" data-ng-model="item[column.name]">
             </div>
         </div>
     </form>
