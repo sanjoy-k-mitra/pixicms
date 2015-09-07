@@ -21,15 +21,41 @@ angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
     })
 
 
-ResourceController.$inject = ["$scope", "$http", "$resource", "$modal"];
+ResourceController.$inject = ["$scope", "$http", "$resource", "$modal", "$filter"];
 
-function ResourceController($scope, $http, $resource, $modal) {
-    if (!$scope.viewColumns) {
-        $scope.viewColumns = $scope.columns
+function ResourceController($scope, $http, $resource, $modal, $filter) {
+    $http({
+        url: $scope.endpoint,
+        method: "OPTIONS"
+    }).success(function (options) {
+        if (!$scope.columns) {
+            $scope.columns = options;
+            initViewAndEditColumns();
+        }
+        function populateOptions(columnArray) {
+            for (var i = 0; i < columnArray.length; i++) {
+                var original = $filter("filter")(options, {name: columnArray[i].name}, true);
+                if (columnArray[i].targetEntity && !columnArray[i].options) {
+                    columnArray[i].options = original.options
+                }
+            }
+        }
+
+        var ca = [$scope.columns, $scope.editColumns, $scope.viewColumns]
+        for (var i = 0; i < ca.length; i++) {
+            populateOptions(ca[i]);
+        }
+    });
+    function initViewAndEditColumns() {
+        if (!$scope.viewColumns) {
+            $scope.viewColumns = $scope.columns
+        }
+        if (!$scope.editColumns) {
+            $scope.editColumns = $scope.columns
+        }
     }
-    if (!$scope.editColumns) {
-        $scope.editColumns = $scope.columns
-    }
+
+    initViewAndEditColumns();
     $scope.pagination = {
         offset: 0,
         limit: 10
@@ -82,6 +108,9 @@ function ResourceController($scope, $http, $resource, $modal) {
                     model.delete({itemId: item.id}).$promise.then($scope.reload)
                 })
         })
+    }
+    $scope.editDate = function(column){
+        column.isEditing = true
     }
 
     $scope.load();

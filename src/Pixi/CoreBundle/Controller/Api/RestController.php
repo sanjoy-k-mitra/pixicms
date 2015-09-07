@@ -96,7 +96,23 @@ abstract class RestController extends Controller
                     break;
                 }
             }
-            $options[$name] = $columnOptions;
+            if(empty($columnOptions['name'])){
+                $columnOptions['name'] = $name;
+            }
+            if(!empty($columnOptions['targetEntity'])){
+                $targetClass = $columnOptions['targetEntity'];
+                if(strpos($columnOptions['targetEntity'],'\\') == null){
+                    $targetClass = $reflectionClass->getNamespaceName()."\\".$targetClass;
+                }
+                $targetReflectionClass = new \ReflectionClass($targetClass);
+                $selects = "te.id, te.name". ($targetReflectionClass->hasProperty("displayName")? ", te.displayName" : "");
+                $columnOptions['options'] = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
+                    ->select($selects)
+                    ->from($targetClass, "te")
+                    ->getQuery()
+                    ->getArrayResult();
+            }
+            array_push($options, $columnOptions);
         }
         $response = new Response($this->serializer->serialize($options,"json"));
         $response->headers->set("Content-Type", "application/json");

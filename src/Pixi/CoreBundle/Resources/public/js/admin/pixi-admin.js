@@ -52,6 +52,27 @@ angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
                 type: "integer"
             }].concat($scope.editColumns);
     }])
+    .controller("UserController", ["$scope", function($scope){
+        $scope.editColumns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            },
+            {
+                name: "permissions",
+                displayName: "Permissions",
+                targetEntity: "Permission",
+                type: "Object"
+            }
+        ]
+        $scope.viewColumns = $scope.editColumns;
+        $scope.columns = [{
+                name: "id",
+                displayName: "ID",
+                type: "integer"
+            }].concat($scope.editColumns);
+    }])
     .directive('sidebar', ['$location', function () {
         return {
             templateUrl: '/admin/sidebar',
