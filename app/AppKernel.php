@@ -17,7 +17,6 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
             new Sensio\Bundle\FrameworkExtraBundle\SensioFrameworkExtraBundle(),
             new Pixi\CoreBundle\PixiCoreBundle(),
-            new Pixi\LoyaltyManagerBundle\PixiLoyaltyManagerBundle(),
             new Pixi\HospitalBundle\PixiHospitalBundle(),
         );
 

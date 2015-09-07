@@ -3,11 +3,6 @@ pixi_hospital:
     type:     annotation
     prefix:   /
 
-pixi_loyalty_manager:
-    resource: "@PixiLoyaltyManagerBundle/Controller/"
-    type:     annotation
-    prefix:   /
-
 pixi_core:
     resource: "@PixiCoreBundle/Controller/"
     type:     annotation

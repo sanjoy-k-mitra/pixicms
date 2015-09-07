@@ -35,8 +35,8 @@ class Patient extends PixiModel
     protected $age;
     /**
      * @var
-     * @ManyToOne(targetEntity="Doctor")
+     * @ManyToOne(targetEntity="Doctor", inversedBy="patients")
      */
-    protected $referal;
+    protected $referral;
 
 }

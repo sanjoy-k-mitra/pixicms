@@ -41,7 +41,7 @@ class Bed
     protected $ward;
     /**
      * @var
-     * @Column(type="double")
+     * @Column(type="float")
      */
     protected $dailyCost;
 }

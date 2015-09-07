@@ -47,7 +47,7 @@ class Doctor
     protected $apointmentFee;
     /**
      * @var
-     * @OneToMany(targetEntity="Patient")
+     * @OneToMany(targetEntity="Patient", mappedBy="referral")
      */
     protected $patients;
 
