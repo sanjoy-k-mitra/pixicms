@@ -7,7 +7,7 @@ angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
 
     }])
     .controller("PermissionController", ["$scope", function($scope){
-        $scope.editColumns = [
+        $scope.columns = [
             {
                 name: "name",
                 displayName: "Name",
@@ -23,16 +23,10 @@ angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
                 displayName: "Description",
                 type: "string"
             }
-        ]
-        $scope.viewColumns = $scope.editColumns;
-        $scope.columns = [{
-                name: "id",
-                displayName: "ID",
-                type: "integer"
-            }].concat($scope.editColumns);
+        ];
     }])
     .controller("RoleController", ["$scope", function($scope){
-        $scope.editColumns = [
+        $scope.columns = [
             {
                 name: "name",
                 displayName: "Name",
@@ -42,36 +36,40 @@ angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
                 name: "permissions",
                 displayName: "Permissions",
                 targetEntity: "Permission",
-                type: "Object"
+                type: "List"
             }
-        ]
-        $scope.viewColumns = $scope.editColumns;
-        $scope.columns = [{
-                name: "id",
-                displayName: "ID",
-                type: "integer"
-            }].concat($scope.editColumns);
+        ];
     }])
     .controller("UserController", ["$scope", function($scope){
-        $scope.editColumns = [
+        $scope.columns = [
             {
                 name: "name",
                 displayName: "Name",
                 type: "string"
             },
             {
-                name: "permissions",
-                displayName: "Permissions",
-                targetEntity: "Permission",
+                name: "email",
+                displayName: "Email",
+                type: "string"
+            },
+            {
+                name: "userRole",
+                displayName: "Role",
+                targetEntity: "UserRole",
                 type: "Object"
-            }
+            },
+            {
+                name: "username",
+                displayName: "User Name",
+                type: "string"
+            },
+            {
+                name: "isActive",
+                displayName: "Active",
+                type: "boolean"
+            },
+
         ]
-        $scope.viewColumns = $scope.editColumns;
-        $scope.columns = [{
-                name: "id",
-                displayName: "ID",
-                type: "integer"
-            }].concat($scope.editColumns);
     }])
     .directive('sidebar', ['$location', function () {
         return {
