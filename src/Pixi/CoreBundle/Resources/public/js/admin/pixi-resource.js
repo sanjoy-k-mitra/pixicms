@@ -13,7 +13,9 @@ angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
                 endpoint: "@",
                 columns: "=",
                 viewColumns: "=",
-                editColumns: "="
+                editColumns: "=",
+                actions: "=",
+                performAction: "&"
             },
             controller: "ResourceController",
             templateUrl: "templates/resource/list.html"

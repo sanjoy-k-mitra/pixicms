@@ -25,7 +25,8 @@ angular.module("pixi.admin")
         ]
 
     }])
-    .controller("ProductController", ["$scope", function($scope){
+    .controller("ProductController", ["$scope", "$modal", "$resource", function($scope, $modal, $resource){
+        var InventoryItem = $resource("/api/inventoryItem")
         $scope.columns = [
             {
                 name: "name",
@@ -65,6 +66,24 @@ angular.module("pixi.admin")
             },
 
         ]
+        $scope.performCustomAction = function(action, item){
+            $scope.item = item;
+            $scope.inventoryItem = {
+                product: item,
+                quantity: 0
+            }
+            $modal.open({
+                scope: $scope,
+                templateUrl: '/bundles/pixihospital/template/addInventory.html'
+            }).result.then(function(inventoryItem){
+                    InventoryItem.save({}, inventoryItem).$promise.then(function(){
+                        console.log("Success");
+                    }, function(){
+                        console.log("Error");
+                    });
+                });
+        }
+        $scope.actions = ["Load Inventory"];
     }])
     .controller("DoctorController", ["$scope", function($scope){
         $scope.columns = [

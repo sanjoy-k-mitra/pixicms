@@ -50,6 +50,7 @@
                         <li data-ng-click="viewItem(item.id)"><a>View {{title}}</a></li>
                         <li data-ng-click="editItem(item.id)"><a>Edit {{title}}</a></li>
                         <li data-ng-click="deleteItem(item.id)"><a>Delete {{title}}</a></li>
+                        <li data-ng-repeat="action in actions" data-ng-click="performAction({action:action, item:item})"><a>{{action}}</a></li>
                     </ul>
                 </div>
             </td>

@@ -1,3 +1,6 @@
 <div data-ng-controller="ProductController">
-    <pixi-resource title="Product" list-title="Products" endpoint="/api/product" columns="columns" view-columns="viewColumns" edit-columns="editColumns"></pixi-resource>
+    <pixi-resource title="Product" list-title="Products" endpoint="/api/product" columns="columns"
+                   view-columns="viewColumns" edit-columns="editColumns"
+                   actions="actions" perform-action="performCustomAction(action, item)">
+    </pixi-resource>
 </div>
