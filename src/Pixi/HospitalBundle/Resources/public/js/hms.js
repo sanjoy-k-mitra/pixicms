@@ -26,7 +26,45 @@ angular.module("pixi.admin")
 
     }])
     .controller("ProductController", ["$scope", function($scope){
+        $scope.columns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            },
+            {
+                name: "genericName",
+                displayName: "Generic Name",
+                type: "string"
+            },
+            {
+                name: "measurement",
+                displayName: "Measurement",
+                type: "string"
+            },
+            {
+                name: "category",
+                displayName: "Category",
+                targetEntity: "Category",
+                type: "Object"
+            },
+            {
+                name: "manufacturer",
+                displayName: "Manufacturer",
+                targetEntity: "Manufacturer",
+                type: "Object"
+            },
+            {
+                name: "cost",
+                displayName: "Buying Price",
+                type: "float"
+            },{
+                name: "price",
+                displayName: "Selling Price",
+                type: "float"
+            },
 
+        ]
     }])
     .controller("DoctorController", ["$scope", function($scope){
         $scope.columns = [
@@ -49,5 +87,40 @@ angular.module("pixi.admin")
         ]
     }])
     .controller("BedController", ["$scope", function($scope){
+        $scope.columns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            },
+            {
+                name: "ward",
+                displayName: "ward",
+                type: "string"
+            },
+            {
+                name: "dailyCost",
+                displayName: "Daily Rent",
+                type: "float"
+            },
 
+        ]
     }])
+    .controller("CategoryController", ["$scope", function($scope){
+        $scope.columns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            }
+        ]
+    }])
+    .controller("ManufacturerController", ["$scope", function($scope){
+        $scope.columns = [
+            {
+                name: "name",
+                displayName: "Name",
+                type: "string"
+            }
+        ]
+    }]);

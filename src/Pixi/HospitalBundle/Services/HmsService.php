@@ -38,6 +38,8 @@ class HmsService extends ContainerAware
     public function adminRoutes(RouteEvent $event){
         $event->addData(new RouteEntry('patient', '/patient', "/bundles/pixihospital/template/patient.html"));
         $event->addData(new RouteEntry('product', '/product', "/bundles/pixihospital/template/product.html"));
+        $event->addData(new RouteEntry('category', '/category', "/bundles/pixihospital/template/category.html"));
+        $event->addData(new RouteEntry('manufacturer', '/manufacturer', "/bundles/pixihospital/template/manufacturer.html"));
         $event->addData(new RouteEntry('doctor', '/doctor', "/bundles/pixihospital/template/doctor.html"));
         $event->addData(new RouteEntry('bed', '/bed', "/bundles/pixihospital/template/bed.html"));
     }
@@ -48,6 +50,8 @@ class HmsService extends ContainerAware
         }
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_PHARMACY')){
             $event->addChild(new MenuItem("Product", "product", "fa fa-medkit fa-fw"));
+            $event->addChild(new MenuItem("Category", "category", "fa fa-medkit fa-fw"));
+            $event->addChild(new MenuItem("Manufacturer", "manufacturer", "fa fa-medkit fa-fw"));
         }
         if ($this->container->get('security.authorization_checker')->isGranted('ROLE_MANAGEMENT')){
             $event->addChild(new MenuItem("Doctor", "doctor", "fa fa-user-md fa-fw"));

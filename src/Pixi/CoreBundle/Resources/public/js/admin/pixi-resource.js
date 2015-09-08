@@ -34,7 +34,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
         }
         function populateOptions(columnArray) {
             for (var i = 0; i < columnArray.length; i++) {
-                var original = $filter("filter")(options, {name: columnArray[i].name}, true);
+                var original = $filter("filter")(options, {name: columnArray[i].name}, true)[0];
                 if (columnArray[i].targetEntity && !columnArray[i].options) {
                     columnArray[i].options = original.options
                 }
@@ -56,15 +56,11 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
     }
 
     initViewAndEditColumns();
-    $scope.pagination = {
-        offset: 0,
-        limit: 10
-    },
-        $scope.load = function () {
-            $http.get($scope.endpoint, {params: $scope.pagination}).success(function (items) {
-                $scope.items = items;
-            })
-        }
+    $scope.load = function () {
+        $http.get($scope.endpoint).success(function (items) {
+            $scope.items = items;
+        })
+    }
     $scope.reload = $scope.load;
     var model = $resource($scope.endpoint + "/:itemId", {itemId: "@id"});
 
@@ -109,7 +105,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
                 })
         })
     }
-    $scope.editDate = function(column){
+    $scope.editDate = function (column) {
         column.isEditing = true
     }
 
