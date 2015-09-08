@@ -24,6 +24,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Acl\Exception\Exception;
 use Symfony\Component\Serializer\Encoder\JsonEncoder;
 use Symfony\Component\Serializer\Encoder\XmlEncoder;
 use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
@@ -221,7 +222,9 @@ abstract class RestController extends Controller
         $object = $em->getRepository($this->getEntityClass())->find($id);
         foreach($refClass->getProperties() as $refProperty){
             $propertyName = $refProperty->getName();
-            if(empty($content->$propertyName)){
+            try{
+                $content->$propertyName;
+            }catch (\Exception $error){
                 continue;
             }
             foreach($this->annotationReader->getPropertyAnnotations($refProperty) as $annotation){
@@ -238,6 +241,24 @@ abstract class RestController extends Controller
                         array_push($dbValues, $dbVal);
                     }
                     $content->$propertyName = $dbValues;
+
+                    $removerName = "remove".ucfirst($annotation->targetEntity);
+                    $getterName = "get".ucfirst($propertyName);
+                    if($refClass->hasMethod($getterName) && $refClass->hasMethod($removerName)){
+                        $getter = $refClass->getMethod($getterName);
+                        $remover = $refClass->getMethod($removerName);
+                        foreach($getter->invoke($object) as $oldRelation){
+                            $remover->invoke($object, $oldRelation);
+                        }
+                    }
+
+                    $methodName = "add".ucfirst($annotation->targetEntity);
+                    if($refClass->hasMethod($methodName)){
+                        $adder = $refClass->getMethod($methodName);
+                        foreach($dbValues as $dbValue){
+                            $adder->invoke($object, $dbValue);
+                        }
+                    }
                     break;
                 } elseif ($annotation instanceof OneToOne || $annotation instanceof ManyToOne) {
                     $contentValue = $content->$propertyName;
@@ -248,6 +269,12 @@ abstract class RestController extends Controller
                     $targetRepository = $em->getRepository($targetEntity);
                     $dbValue = $targetRepository->find($contentValue->id);
                     $content->$propertyName = $dbValue;
+
+                    $methodName = "set".ucfirst($propertyName);
+                    if($refClass->hasMethod($methodName)){
+                        $setter = $refClass->getMethod($methodName);
+                        $setter->invoke($object, $content->$propertyName);
+                    }
                     break;
                 }else{
                     $methodName = "set".ucfirst($propertyName);
@@ -258,8 +285,6 @@ abstract class RestController extends Controller
                 }
             }
         }
-
-//        $object = $this->normalizer->denormalize($content, $this->getEntityClass(), "json");
         $em->persist($object);
         $em->flush();
         $response = new Response($this->serializer->serialize($object, "json"));

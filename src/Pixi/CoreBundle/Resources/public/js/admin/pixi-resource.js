@@ -34,8 +34,8 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
         }
         function populateOptions(columnArray) {
             for (var i = 0; i < columnArray.length; i++) {
-                var original = $filter("filter")(options, {name: columnArray[i].name}, true);
-                if (columnArray[i].targetEntity && !columnArray[i].options) {
+                var original = $filter("filter")(options, {name: columnArray[i].name}, true)[0];
+                if (original && columnArray[i].targetEntity && !columnArray[i].options) {
                     columnArray[i].options = original.options
                 }
             }

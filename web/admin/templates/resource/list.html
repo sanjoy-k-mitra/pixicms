@@ -28,7 +28,7 @@
                 <div data-ng-if="isRelation && column.type == 'Object'">
                     {{item[column.name].displayName || item[column.name].name}}
                 </div>
-                <div data-ng-if="isRelation && columnType == 'List'">
+                <div data-ng-if="isRelation && column.type == 'List'">
                     <span data-ng-repeat="e in item[column.name]">[{{e.displayName || e.name}}]</span>
                 </div>
                 <div data-ng-if="!isRelation" data-ng-switch on="column.type">

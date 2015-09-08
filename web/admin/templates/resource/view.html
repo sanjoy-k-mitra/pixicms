@@ -9,7 +9,7 @@
             <label>{{column.displayName || (column.name | uppercase)}}</label>
             <span data-ng-if="column.type=='Object'">{{item[column.name].displayName || item[column.name].name}}</span>
             <div data-ng-if="column.type=='List'">
-                <span data-ng-repeat="relation in item[column.name]">{{relation.displayName || relation.name}</span>
+                <span data-ng-repeat="relation in item[column.name]">{{relation.displayName || relation.name}}</span>
             </div>
             <!--<input type="text" class="form-control" name="{{column}}" data-ng-model="item[column]">-->
         </div>
