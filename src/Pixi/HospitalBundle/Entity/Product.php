@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Class PharmacyItem
@@ -65,6 +66,11 @@ class Product
      * @ManyToOne(targetEntity="Manufacturer", inversedBy="products")
      */
     protected $manufacturer;
+    /**
+     * @var
+     * @OneToMany(targetEntity="InventoryItem", mappedBy="product")
+     */
+    protected $inventoryItems;
 
 
     /**
@@ -236,5 +242,13 @@ class Product
     public function getManufacturer()
     {
         return $this->manufacturer;
+    }
+
+    public function getQuantity(){
+        $quantity = 0;
+        foreach($this->inventoryItems as $ii){
+            $quantity += $ii->getQuantity();
+        }
+        return $quantity;
     }
 }

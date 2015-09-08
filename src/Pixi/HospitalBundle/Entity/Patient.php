@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Class Patient
@@ -38,6 +39,11 @@ class Patient extends PixiModel
      * @ManyToOne(targetEntity="Doctor", inversedBy="patients")
      */
     protected $referral;
+    /**
+     * @var
+     * @OneToMany(targetEntity="PharmacyInvoice", mappedBy="patient")
+     */
+    protected $pharmacyInvoices;
 
 
     /**

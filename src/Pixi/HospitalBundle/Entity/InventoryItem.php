@@ -14,6 +14,7 @@ use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
  * Class InventoryItem
@@ -32,7 +33,7 @@ class InventoryItem
     protected $id;
     /**
      * @var
-     * @ManyToOne(targetEntity="Product")
+     * @ManyToOne(targetEntity="Product", inversedBy="inventoryItems")
      */
     protected $product;
     /**
@@ -40,6 +41,11 @@ class InventoryItem
      * @Column(type="integer")
      */
     protected $quantity;
+    /**
+     * @var
+     * @ManyToOne(targetEntity="PharmacyInvoice", inversedBy="inventoryItems")
+     */
+    protected $pharmacyInvoice;
 
     /**
      * @return mixed
