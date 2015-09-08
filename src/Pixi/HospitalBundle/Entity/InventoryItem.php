@@ -87,5 +87,21 @@ class InventoryItem
         $this->quantity = $quantity;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPharmacyInvoice()
+    {
+        return $this->pharmacyInvoice;
+    }
+
+    /**
+     * @param mixed $pharmacyInvoice
+     */
+    public function setPharmacyInvoice($pharmacyInvoice)
+    {
+        $this->pharmacyInvoice = $pharmacyInvoice;
+    }
+
 
 }

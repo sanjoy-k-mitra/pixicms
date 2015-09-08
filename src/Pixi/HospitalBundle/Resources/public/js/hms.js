@@ -27,7 +27,7 @@ angular.module("pixi.admin")
     }])
     .controller("ProductController", ["$scope", "$modal", "$resource", function($scope, $modal, $resource){
         var InventoryItem = $resource("/api/inventoryItem")
-        $scope.columns = [
+        $scope.editColumns = [
             {
                 name: "name",
                 displayName: "Name",
@@ -66,6 +66,11 @@ angular.module("pixi.admin")
             },
 
         ]
+        $scope.columns = $scope.editColumns.concat([{
+            name: "quantity",
+            displayName: "Quantity",
+            type: "integer"
+        }])
         $scope.performCustomAction = function(action, item){
             $scope.item = item;
             $scope.inventoryItem = {

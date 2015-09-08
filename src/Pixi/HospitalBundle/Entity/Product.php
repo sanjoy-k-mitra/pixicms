@@ -247,7 +247,11 @@ class Product
     public function getQuantity(){
         $quantity = 0;
         foreach($this->inventoryItems as $ii){
-            $quantity += $ii->getQuantity();
+            if(is_null($ii->getPharmacyInvoice())){
+                $quantity += $ii->getQuantity();
+            }else{
+                $quantity -= $ii->getQuantity();
+            }
         }
         return $quantity;
     }

@@ -105,7 +105,8 @@ abstract class RestController extends Controller
                     $targetClass = $reflectionClass->getNamespaceName()."\\".$targetClass;
                 }
                 $targetReflectionClass = new \ReflectionClass($targetClass);
-                $selects = "te.id, te.name". ($targetReflectionClass->hasProperty("displayName")? ", te.displayName" : "");
+                $selects = "te.id".($targetReflectionClass->hasProperty("name") ? ", te.name" : "")
+                    .($targetReflectionClass->hasProperty("displayName")? ", te.displayName" : "");
                 $columnOptions['options'] = $this->getDoctrine()->getEntityManager()->createQueryBuilder()
                     ->select($selects)
                     ->from($targetClass, "te")
