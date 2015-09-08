@@ -2,8 +2,8 @@
 /**
  * Created by PhpStorm.
  * User: sanjoy
- * Date: 9/7/15
- * Time: 6:53 PM
+ * Date: 9/8/15
+ * Time: 12:51 PM
  */
 
 namespace Pixi\HospitalBundle\Entity;
@@ -13,14 +13,15 @@ use Doctrine\ORM\Mapping\Table;
 use Doctrine\ORM\Mapping\Id;
 use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\OneToMany;
 
 /**
- * Class Bed
+ * Class Category
  * @package Pixi\HospitalBundle\Entity
  * @Entity
- * @Table(name="hms_bed")
+ * @Table(name="hms_category")
  */
-class Bed
+class Category
 {
     /**
      * @var
@@ -31,19 +32,22 @@ class Bed
     protected $id;
     /**
      * @var
-     * @Column(type="string", length=100)
+     * @Column(type="string")
      */
     protected $name;
     /**
      * @var
-     * @Column(type="string", length=100, nullable=true)
+     * @OneToMany(targetEntity="Product", mappedBy="category")
      */
-    protected $ward;
+    protected $products;
+
     /**
-     * @var
-     * @Column(type="float")
+     * Constructor
      */
-    protected $dailyCost;
+    public function __construct()
+    {
+        $this->products = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
     /**
      * Get id
@@ -59,7 +63,7 @@ class Bed
      * Set name
      *
      * @param string $name
-     * @return Bed
+     * @return Category
      */
     public function setName($name)
     {
@@ -79,48 +83,35 @@ class Bed
     }
 
     /**
-     * Set ward
+     * Add products
      *
-     * @param string $ward
-     * @return Bed
+     * @param \Pixi\HospitalBundle\Entity\Product $products
+     * @return Category
      */
-    public function setWard($ward)
+    public function addProduct(\Pixi\HospitalBundle\Entity\Product $products)
     {
-        $this->ward = $ward;
+        $this->products[] = $products;
 
         return $this;
     }
 
     /**
-     * Get ward
+     * Remove products
      *
-     * @return string 
+     * @param \Pixi\HospitalBundle\Entity\Product $products
      */
-    public function getWard()
+    public function removeProduct(\Pixi\HospitalBundle\Entity\Product $products)
     {
-        return $this->ward;
+        $this->products->removeElement($products);
     }
 
     /**
-     * Set dailyCost
+     * Get products
      *
-     * @param float $dailyCost
-     * @return Bed
+     * @return \Doctrine\Common\Collections\Collection 
      */
-    public function setDailyCost($dailyCost)
+    public function getProducts()
     {
-        $this->dailyCost = $dailyCost;
-
-        return $this;
-    }
-
-    /**
-     * Get dailyCost
-     *
-     * @return float 
-     */
-    public function getDailyCost()
-    {
-        return $this->dailyCost;
+        return $this->products;
     }
 }

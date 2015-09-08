@@ -173,7 +173,11 @@ abstract class RestController extends Controller
             foreach ($annotations as $annotation) {
                 if ($annotation instanceof OneToMany || $annotation instanceof ManyToMany) {
                     $propertyName = $refProperty->getName();
-                    $contentValue = $content->$propertyName;
+                    try{
+                        $contentValue = $content->$propertyName;
+                    }catch (\Exception $err){
+                        break;
+                    }
                     $targetEntity = $annotation->targetEntity;
                     if (strstr($targetEntity, "\\") == false) {
                         $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;
@@ -188,7 +192,11 @@ abstract class RestController extends Controller
                     break;
                 } elseif ($annotation instanceof OneToOne || $annotation instanceof ManyToOne) {
                     $propertyName = $refProperty->getName();
-                    $contentValue = $content->$propertyName;
+                    try{
+                        $contentValue = $content->$propertyName;
+                    }catch (\Exception $err){
+                        break;
+                    }
                     $targetEntity = $annotation->targetEntity;
                     if (strstr($targetEntity, "\\") == false) {
                         $targetEntity = $refClass->getNamespaceName() . "\\" . $targetEntity;

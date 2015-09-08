@@ -39,4 +39,73 @@ class Patient extends PixiModel
      */
     protected $referral;
 
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Patient
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set age
+     *
+     * @param integer $age
+     * @return Patient
+     */
+    public function setAge($age)
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    /**
+     * Get age
+     *
+     * @return integer 
+     */
+    public function getAge()
+    {
+        return $this->age;
+    }
+
+    /**
+     * Set referral
+     *
+     * @param \Pixi\HospitalBundle\Entity\Doctor $referral
+     * @return Patient
+     */
+    public function setReferral(\Pixi\HospitalBundle\Entity\Doctor $referral = null)
+    {
+        $this->referral = $referral;
+
+        return $this;
+    }
+
+    /**
+     * Get referral
+     *
+     * @return \Pixi\HospitalBundle\Entity\Doctor 
+     */
+    public function getReferral()
+    {
+        return $this->referral;
+    }
 }
