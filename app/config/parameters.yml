@@ -1,11 +1,11 @@
 # This file is auto-generated during the composer install
 parameters:
-    database_driver: pdo_mysql
+    database_driver: pdo_pgsql
     database_host: localhost
-    database_port: 3306
-    database_name: pixicms
-    database_user: root
-    database_password: admin
+    database_port: 5432
+    database_name: pixicms_hospital
+    database_user: sitaakowknqdsd
+    database_password: WPdAlR2WJBk8VtJJjwAsG_OaYw
     mailer_transport: smtp
     mailer_host: 127.0.0.1
     mailer_user: null
