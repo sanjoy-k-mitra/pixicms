@@ -255,4 +255,44 @@ class Product
         }
         return $quantity;
     }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->inventoryItems = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add inventoryItems
+     *
+     * @param \Pixi\HospitalBundle\Entity\InventoryItem $inventoryItems
+     * @return Product
+     */
+    public function addInventoryItem(\Pixi\HospitalBundle\Entity\InventoryItem $inventoryItems)
+    {
+        $this->inventoryItems[] = $inventoryItems;
+
+        return $this;
+    }
+
+    /**
+     * Remove inventoryItems
+     *
+     * @param \Pixi\HospitalBundle\Entity\InventoryItem $inventoryItems
+     */
+    public function removeInventoryItem(\Pixi\HospitalBundle\Entity\InventoryItem $inventoryItems)
+    {
+        $this->inventoryItems->removeElement($inventoryItems);
+    }
+
+    /**
+     * Get inventoryItems
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getInventoryItems()
+    {
+        return $this->inventoryItems;
+    }
 }

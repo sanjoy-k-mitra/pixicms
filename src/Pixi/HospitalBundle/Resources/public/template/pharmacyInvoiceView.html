@@ -1,0 +1,67 @@
+<div class="modal-header">
+    <button type="button" class="close" data-ng-click="$dismiss('User Interaction')">&times;</button>
+    <h4 class="modal-title">View Pharmacy Invoice</h4>
+</div>
+<div class="modal-body row">
+    <div class="row">
+        <div class="col-sm-5 col-sm-offset-1">
+            <div data-ng-if="item.patient">
+                <div>Name : {{item.patient.name}}</div>
+                <div>Age : {{item.patient.age}}</div>
+            </div>
+            <div data-ng-if="!item.patient">
+                <div>Name : {{item.billedTo}}</div>
+            </div>
+        </div>
+        <div class="col-sm-5 col-sm-offset-1">
+            <div>Date : {{item.created | date}}</div>
+            <div>Doctor : {{item.doctor.name}}</div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-striped table-hover">
+                <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Unit Price</th>
+                    <th>Quantity</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="ii in item.inventoryItems">
+                    <td>{{ii.product.name}}</td>
+                    <td>{{ii.product.price}}</td>
+                    <td>{{ii.quantity}}</td>
+                    <td>{{ii.quantity * ii.product.price}}</td>
+                </tr>
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Sub Total</td>
+                    <td>{{item.subTotal}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Discount</td>
+                    <td>{{item.discount}}{{item.percentageDiscount ? "%" : ""}}</td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>Total</td>
+                    <td>{{item.total}}</td>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-ng-click="$dismiss('User Interaction')">Close</button>
+</div>

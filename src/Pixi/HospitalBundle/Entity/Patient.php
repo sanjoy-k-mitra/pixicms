@@ -114,4 +114,46 @@ class Patient extends PixiModel
     {
         return $this->referral;
     }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->pharmacyInvoices = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add pharmacyInvoices
+     *
+     * @param \Pixi\HospitalBundle\Entity\PharmacyInvoice $pharmacyInvoices
+     * @return Patient
+     */
+    public function addPharmacyInvoice(\Pixi\HospitalBundle\Entity\PharmacyInvoice $pharmacyInvoices)
+    {
+        $this->pharmacyInvoices[] = $pharmacyInvoices;
+
+        return $this;
+    }
+
+    /**
+     * Remove pharmacyInvoices
+     *
+     * @param \Pixi\HospitalBundle\Entity\PharmacyInvoice $pharmacyInvoices
+     */
+    public function removePharmacyInvoice(\Pixi\HospitalBundle\Entity\PharmacyInvoice $pharmacyInvoices)
+    {
+        $this->pharmacyInvoices->removeElement($pharmacyInvoices);
+    }
+
+    /**
+     * Get pharmacyInvoices
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPharmacyInvoices()
+    {
+        return $this->pharmacyInvoices;
+    }
+
 }
