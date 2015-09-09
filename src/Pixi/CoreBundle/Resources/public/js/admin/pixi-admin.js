@@ -1,4 +1,4 @@
-angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource"])
+angular.module('pixi.admin', ["pixi.resource", "ui.bootstrap", "ngResource", "localytics.directives"])
     .controller("SidebarController", ["$scope", "$http", function ($scope, $http) {
         $scope.open = function(event){
             var li = $(event.target).parent('li');
