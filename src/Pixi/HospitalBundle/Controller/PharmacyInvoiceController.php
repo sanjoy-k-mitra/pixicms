@@ -70,4 +70,15 @@ class PharmacyInvoiceController extends RestController
         return $response;
     }
 
+    /**
+     *
+     */
+    public function update($id){
+
+    }
+
+    public function delete($id){
+
+    }
+
 }
