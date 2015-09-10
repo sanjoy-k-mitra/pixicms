@@ -1,15 +1,14 @@
 <ul class="nav">
     {% for entry in entries %}
-        <li ui-sref-active="active" class="{{ entry.className }}">
+        <li ui-sref-active="active" class="{{ entry.className }}" data-ng-click="open($event)">
             {% if entry.children is defined %}
-                <a data-ng-click="open($event)"><i class="{{ entry.iconClass }}"></i> {{ entry.displayName }}<span class="fa arrow"></span> </a>
+                <a ><i class="{{ entry.iconClass }}"></i><span class="menu-title">{{ entry.displayName }}</span><span class="fa arrow"></span> </a>
 
-                {% include 'PixiCoreBundle:Admin:menu_items.html.twig' with {'entries': entry.children} %}
+                {% include 'PixiCoreBundle:Admin:menu_items.html.twig' with {'entries': entry.children, 'lavel':lavel+1} %}
 
             {% else %}
-                <a ui-sref="{{ entry.action }}"><i class="{{ entry.iconClass }}"></i> {{ entry.displayName }}</a>
+                <a ui-sref="{{ entry.action }}"><i class="{{ entry.iconClass }}"></i><span class="menu-title"> {{ entry.displayName }}</span></a>
             {% endif %}
         </li>
     {% endfor %}
-
 </ul>
