@@ -21,6 +21,9 @@
     "metisMenu": "~2.0.2",
     "angular-loading-bar": "~0.8.0",
     "angular-ui-router": "~0.2.15",
-    "angular-resource": "~1.4.1"
+    "angular-resource": "~1.4.1",
+    "angular-bootstrap": "~0.14.3",
+    "angular-chosen-localytics": "~1.0.7",
+    "bootstrap-hover-dropdown": "~2.2.1"
   }
 }

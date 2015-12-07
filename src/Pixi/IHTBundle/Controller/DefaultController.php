@@ -1,19 +1,19 @@
 <?php
 
-namespace Pixi\CoreBundle\Controller;
+namespace Pixi\IHTBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 
-class SiteController extends Controller
+class DefaultController extends Controller
 {
     /**
-     * @Route("/", name="homepage")
+     * @Route("/hello/{name}")
      * @Template()
      */
-    public function indexAction()
+    public function indexAction($name)
     {
-        return $this->redirectToRoute('adminPanel');
+        return array('name' => $name);
     }
 }

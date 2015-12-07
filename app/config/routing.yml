@@ -1,3 +1,8 @@
+pixi_iht:
+    resource: "@PixiIHTBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 pixi_core:
     resource: "@PixiCoreBundle/Controller/"
     type:     annotation

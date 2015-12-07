@@ -1,5 +1,5 @@
 <?php
-
+namespace Pixi\IHTBundle\Entity;
 /**
  * Created by PhpStorm.
  * User: sanjoy
@@ -24,7 +24,7 @@ class Account extends \Pixi\CoreBundle\Entity\PixiModel
     protected $name;
     /**
      * @var
-     * @Column(type="Boolean")
+     * @Column(type="boolean")
      */
     protected $isActive;
     /**
