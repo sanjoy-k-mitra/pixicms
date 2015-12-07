@@ -15,4 +15,7 @@
 /vendor/
 /web/bundles/
 
+#bower
+src/Pixi/CoreBundle/Resources/public/lib
+
 

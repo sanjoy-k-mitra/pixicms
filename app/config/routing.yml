@@ -1,5 +1,5 @@
-pixi_loyalty_manager:
-    resource: "@PixiLoyaltyManagerBundle/Controller/"
+pixi_iht:
+    resource: "@PixiIHTBundle/Controller/"
     type:     annotation
     prefix:   /
 
