@@ -34,6 +34,7 @@
                 <div data-ng-if="!isRelation" data-ng-switch on="column.type">
                     <span data-ng-switch-when="string">{{item[column.name] | limitTo: 150}}</span>
                     <span data-ng-switch-when="datetime">{{item[column.name] | date:medium}}</span>
+                    <span data-ng-switch-when="boolean" class="pixi-boolean {{item[column.name] || false}}"></span>
                     <span data-ng-switch-default>{{item[column.name]}}</span>
                 </div>
             </td>
