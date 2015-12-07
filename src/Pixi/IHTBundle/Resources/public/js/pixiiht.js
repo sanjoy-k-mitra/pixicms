@@ -25,7 +25,7 @@ angular.module('pixi.admin')
                 type:"datetime"
             },
             {
-                name: "modified",
+                name: "updated",
                 displayName: "Modified",
                 type:"datetime"
             }
@@ -74,7 +74,7 @@ angular.module('pixi.admin')
                 type:"datetime"
             },
             {
-                name: "modified",
+                name: "updated",
                 displayName: "Modified",
                 type:"datetime"
             }
@@ -91,7 +91,7 @@ angular.module('pixi.admin')
                 name: "account",
                 displayName: "Account",
                 targetEntity:"Account",
-                type:"object"
+                type:"Object"
             },
             {
                 name: "isApplicable",
@@ -109,7 +109,7 @@ angular.module('pixi.admin')
                 type:"datetime"
             },
             {
-                name: "modified",
+                name: "updated",
                 displayName: "Modified",
                 type:"datetime"
             }
@@ -124,7 +124,7 @@ angular.module('pixi.admin')
                 name: "account",
                 displayName: "Account",
                 targetEntity:"Account",
-                type:"object"
+                type:"Object"
             },
             {
                 name: "isApplicable",
@@ -152,7 +152,7 @@ angular.module('pixi.admin')
                 name: "account",
                 displayName: "Account",
                 targetEntity:"Account",
-                type:"object"
+                type:"Object"
             },
             {
                 name: "isApplicable",
@@ -170,7 +170,67 @@ angular.module('pixi.admin')
                 type:"datetime"
             },
             {
-                name: "modified",
+                name: "updated",
+                displayName: "Modified",
+                type:"datetime"
+            }
+        ]
+    }])
+    .controller('TransfersController', ['$scope', '$http', function($scope, $http){
+        $scope.editColumns = [
+            {
+                name: "from",
+                displayName: "From",
+                targetEntity:"Account",
+                type:"Object"
+            },
+            {
+                name: "to",
+                displayName: "To",
+                targetEntity:"Account",
+                type:"Object"
+            },
+            {
+                name: "amount",
+                displayName: "Amount",
+                type:"float"
+            },
+            {
+                name: "note",
+                displayName: "Note",
+                type:"string"
+            }
+        ];
+        $scope.columns = $scope.viewColumns = [
+            {
+                name: "from",
+                displayName: "From",
+                targetEntity:"Account",
+                type:"Object"
+            },
+            {
+                name: "to",
+                displayName: "To",
+                targetEntity:"Account",
+                type:"Object"
+            },
+            {
+                name: "amount",
+                displayName: "Amount",
+                type:"float"
+            },
+            {
+                name: "note",
+                displayName: "Note",
+                type:"string"
+            },
+            {
+                name: "created",
+                displayName: "Created",
+                type:"datetime"
+            },
+            {
+                name: "updated",
                 displayName: "Modified",
                 type:"datetime"
             }

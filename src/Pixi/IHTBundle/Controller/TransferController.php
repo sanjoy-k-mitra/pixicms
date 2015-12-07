@@ -13,20 +13,20 @@ use Pixi\CoreBundle\Controller\Api\RestController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 
 /**
- * Class FeeController
+ * Class TransferController
  * @package Pixi\IHTBundle\Controller
- * @Route("api/fee")
+ * @Route("api/transfer")
  */
-class FeeController extends RestController
+class TransferController extends RestController
 {
     protected function getBundleEntity()
     {
-        return "PixiIHTBundle:Fee";
+        return "PixiIHTBundle:Transfer";
     }
 
     protected function getEntityClass()
     {
-        return "Pixi\\IHTBundle\\Entity\\Fee";
+        return "Pixi\\IHTBundle\\Entity\\Transfer";
     }
 
 }

@@ -21,7 +21,7 @@ angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
     })
 
 
-ResourceController.$inject = ["$scope", "$http", "$resource", "$modal", "$filter"];
+ResourceController.$inject = ["$scope", "$http", "$resource", "$uibModal", "$filter"];
 
 function ResourceController($scope, $http, $resource, $modal, $filter) {
     $http({

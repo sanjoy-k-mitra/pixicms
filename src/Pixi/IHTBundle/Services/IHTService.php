@@ -31,12 +31,14 @@ class IHTService
     public function adminRoutes(RouteEvent $event){
         $event->addData(new RouteEntry('accounts', '/accounts', "/bundles/pixiiht/template/accounts.html"));
         $event->addData(new RouteEntry('fees', '/fees', "/bundles/pixiiht/template/fees.html"));
+        $event->addData(new RouteEntry('transfers', '/transfers', "/bundles/pixiiht/template/transfers.html"));
     }
 
     public function adminSidebar(MenuEvent $event){
         $event->addChild(new Menu(array(
             new MenuItem("Accounts", "accounts", "fa fa-cube fa-fw"),
-            new MenuItem("Fees", "fees", "fa fa-cube fa-fw")
+            new MenuItem("Fees", "fees", "fa fa-cube fa-fw"),
+            new MenuItem("Transfers", "transfers", "fa fa-cube fa-fw")
         ), "IHT Settings", null, "fa fa-cog fa-fw"));
     }
 
