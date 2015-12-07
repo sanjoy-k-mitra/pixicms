@@ -79,7 +79,11 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
-        $scope.actions = ["view", "create", "edit"];
+        $scope.actions = {
+            view: null,
+            create: null,
+            edit: null
+        };
     }])
     .controller('FeesController', ['$scope', '$http', function ($scope, $http) {
         $scope.viewColumns = [
@@ -176,7 +180,11 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
-        $scope.actions = ["view", "create", "edit"];
+        $scope.actions = {
+            view: null,
+            create: null,
+            edit: null
+        };
     }])
     .controller('TransfersController', ['$scope', '$http', function($scope, $http){
         $scope.editColumns = [
@@ -237,11 +245,33 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
-        $scope.actions = ["view", "create"];
+        $scope.actions = {
+            view: null,
+            create: null
+        };
     }])
     .controller('PaymentsController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
         $scope.fees = []
         $http.get("/api/fee").success(function(fees){
             $scope.fees = $filter('filter')(fees, {isActive: true}, true);
-        })
+        });
+        $scope.editColumns = [
+
+        ];
+        $scope.columns = $scope.viewColumns = [
+            {
+                name: "registrationNo",
+                displayName: "Registration NO",
+                type: "string"
+            },
+            {
+                name: "comment",
+                displayName: "Comment",
+                type: "string"
+            }
+        ];
+        $scope.actions = {
+            view: null,
+            create: null
+        }
     }])

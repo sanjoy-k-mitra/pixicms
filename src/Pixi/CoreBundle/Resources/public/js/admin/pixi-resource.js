@@ -26,10 +26,15 @@ ResourceController.$inject = ["$scope", "$http", "$resource", "$uibModal", "$fil
 
 function ResourceController($scope, $http, $resource, $modal, $filter) {
     if(!$scope.actions){
-        $scope.actions = ["view", "create", "edit", "delete"]
+        $scope.actions = {
+            view: null,
+            create: null,
+            edit: null,
+            delete: null,
+        }
     }
     $scope.isActionRestricted = function(actionName){
-        return $scope.actions.indexOf(actionName) == -1;
+        return typeof $scope.actions[actionName] === "undefined";
     }
     $http({
         url: $scope.endpoint,
@@ -79,7 +84,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
         $scope.item = {};
         $modal.open({
             scope: $scope,
-            templateUrl: "templates/resource/edit.html"
+            templateUrl: $scope.actions.create || "templates/resource/edit.html"
         }).result.then(function (item) {
                 model.save({}, item).$promise.then($scope.reload);
             })
@@ -89,7 +94,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
             $scope.item = item;
             $modal.open({
                 scope: $scope,
-                templateUrl: "templates/resource/view.html",
+                templateUrl: $scope.actions.view || "templates/resource/view.html",
             })
         })
     }
@@ -98,7 +103,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
             $scope.item = item;
             $modal.open({
                 scope: $scope,
-                templateUrl: "templates/resource/edit.html",
+                templateUrl: $scope.actions.edit || "templates/resource/edit.html",
             }).result.then(function (item) {
                     model.save({itemId: item.id}, item).$promise.then($scope.reload)
                 })
@@ -109,7 +114,7 @@ function ResourceController($scope, $http, $resource, $modal, $filter) {
             $scope.item = item;
             $modal.open({
                 scope: $scope,
-                templateUrl: "templates/resource/delete.html",
+                templateUrl: $scope.actions.delete || "templates/resource/delete.html",
 
             }).result.then(function (item) {
                     model.delete({itemId: item.id}).$promise.then($scope.reload)

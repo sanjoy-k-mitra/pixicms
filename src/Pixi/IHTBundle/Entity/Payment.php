@@ -70,11 +70,26 @@ class Payment extends PixiModel
     }
 
     /**
-     * @param mixed $paymentEntries
+     * Add paymentEntry
+     *
+     * @param \Pixi\IHTBundle\Entity\PaymentEntry $paymentEntry
+     *
+     * @return Payment
      */
-    public function setPaymentEntries($paymentEntries)
+    public function addPaymentEntry(\Pixi\IHTBundle\Entity\PaymentEntry $paymentEntry)
     {
-        $this->paymentEntries = $paymentEntries;
+        $this->paymentEntries[] = $paymentEntry;
+        return $this;
+    }
+
+    /**
+     * Remove paymentEntry
+     *
+     * @param \Pixi\IHTBundle\Entity\PaymentEntry $paymentEntry
+     */
+    public function removePermission(\Pixi\IHTBundle\Entity\PaymentEntry $paymentEntry)
+    {
+        $this->paymentEntries->removeElement($paymentEntry);
     }
 
     /**
@@ -91,6 +106,14 @@ class Payment extends PixiModel
     public function setComment($comment)
     {
         $this->comment = $comment;
+    }
+
+    public function getAmount(){
+        $amount = 0;
+        foreach($this->paymentEntries as $entry){
+            $amount += $entry->getAmount();
+        }
+        return $amount;
     }
 
 
