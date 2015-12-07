@@ -29,7 +29,7 @@ class Account extends \Pixi\CoreBundle\Entity\PixiModel
     protected $isActive;
     /**
      * @var
-     * @Column(type="text")
+     * @Column(type="text", nullable=true)
      */
     protected $description;
 

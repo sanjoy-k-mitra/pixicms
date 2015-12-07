@@ -21,3 +21,7 @@ li a{
 div.sidebar-wrapper .sidebar-nav.navbar-collapse{
     display: block;
 }
+
+.modal-body label:after{
+    content: " : ";
+}
