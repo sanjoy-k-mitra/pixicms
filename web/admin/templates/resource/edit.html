@@ -3,7 +3,7 @@
     <h4 class="modal-title">{{item.id ? "Edit" : "Create"}} {{title}}</h4>
 </div>
 <div class="modal-body">
-    <form role="form">
+    <form role="form" name="modelForm">
         <div data-ng-repeat="column in editColumns" data-ng-init="isRelation = column.targetEntity ? true : false">
             <div  class="form-group" data-ng-if="isRelation">
                 <label>{{column.displayName || (column.name | uppercase)}}</label>
@@ -23,12 +23,13 @@
                     </div>
                 </div>
                 <input type="checkbox" data-ng-switch-when="boolean" name="{{column.name}}" data-ng-model="item[column.name]">
+                <input class="form-control" type="text" data-ng-switch-when="string" name="{{column.name}}" data-ng-model="item[column.name]" pattern=".{0,255}">
                 <input class="form-control" type="text" data-ng-switch-default name="{{column.name}}" data-ng-model="item[column.name]">
             </div>
         </div>
     </form>
 </div>
 <div class="modal-footer" >
-    <button type="button" class="btn btn-danger" data-ng-click="$close(item)">Save</button>
-    <button type="button" class="btn btn-primary" data-ng-click="$dismiss('User Interaction')">Cancel</button>
+    <button type="button" class="btn btn-primary" data-ng-click="modelForm.$valid && $close(item)">Save</button>
+    <button type="button" class="btn btn-default" data-ng-click="$dismiss('User Interaction')">Cancel</button>
 </div>

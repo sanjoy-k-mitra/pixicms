@@ -21,3 +21,29 @@ li a{
 div.sidebar-wrapper .sidebar-nav.navbar-collapse{
     display: block;
 }
+
+.modal-body label:after{
+    content: " : ";
+}
+span.pixi-boolean{
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+span.pixi-boolean.false:before{
+    content: "\e157";
+}
+span.pixi-boolean.true:before{
+    content: "\e067";
+}
+
+.ng-dirty.ng-invalid:not(form){
+    border: 1px solid red;
+}
