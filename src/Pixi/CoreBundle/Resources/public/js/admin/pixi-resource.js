@@ -13,7 +13,8 @@ angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
                 endpoint: "@",
                 columns: "=",
                 viewColumns: "=",
-                editColumns: "="
+                editColumns: "=",
+                actions: "="
             },
             controller: "ResourceController",
             templateUrl: "templates/resource/list.html"
@@ -24,6 +25,12 @@ angular.module("pixi.resource", ["ui.bootstrap", "ngResource"])
 ResourceController.$inject = ["$scope", "$http", "$resource", "$uibModal", "$filter"];
 
 function ResourceController($scope, $http, $resource, $modal, $filter) {
+    if(!$scope.actions){
+        $scope.actions = ["view", "create", "edit", "delete"]
+    }
+    $scope.isActionRestricted = function(actionName){
+        return $scope.actions.indexOf(actionName) == -1;
+    }
     $http({
         url: $scope.endpoint,
         method: "OPTIONS"

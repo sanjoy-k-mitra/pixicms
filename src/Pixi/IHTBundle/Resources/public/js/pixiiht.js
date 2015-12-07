@@ -79,6 +79,7 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
+        $scope.actions = ["view", "create", "edit"];
     }])
     .controller('FeesController', ['$scope', '$http', function ($scope, $http) {
         $scope.viewColumns = [
@@ -175,6 +176,7 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
+        $scope.actions = ["view", "create", "edit"];
     }])
     .controller('TransfersController', ['$scope', '$http', function($scope, $http){
         $scope.editColumns = [
@@ -235,4 +237,11 @@ angular.module('pixi.admin')
                 type:"datetime"
             }
         ]
+        $scope.actions = ["view", "create"];
+    }])
+    .controller('PaymentsController', ['$scope', '$http', '$filter', function($scope, $http, $filter){
+        $scope.fees = []
+        $http.get("/api/fee").success(function(fees){
+            $scope.fees = $filter('filter')(fees, {isActive: true}, true);
+        })
     }])

@@ -32,6 +32,7 @@ class IHTService
         $event->addData(new RouteEntry('accounts', '/accounts', "/bundles/pixiiht/template/accounts.html"));
         $event->addData(new RouteEntry('fees', '/fees', "/bundles/pixiiht/template/fees.html"));
         $event->addData(new RouteEntry('transfers', '/transfers', "/bundles/pixiiht/template/transfers.html"));
+        $event->addData(new RouteEntry('payments', '/payments', "/bundles/pixiiht/template/payments.html"));
     }
 
     public function adminSidebar(MenuEvent $event){
@@ -40,6 +41,7 @@ class IHTService
             new MenuItem("Fees", "fees", "fa fa-cube fa-fw"),
             new MenuItem("Transfers", "transfers", "fa fa-cube fa-fw")
         ), "IHT Settings", null, "fa fa-cog fa-fw"));
+        $event->addChild(new MenuItem("Payments", "payments", "fa fa-cube fa-fw"));
     }
 
 }

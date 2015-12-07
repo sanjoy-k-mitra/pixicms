@@ -8,7 +8,7 @@
                     <input type="text" class="form-control" data-ng-model="searchText" placeholder="Search" area-describedby="search-icon">
                 </div>
             </form>
-            <button type="button" data-ng-click="createItem()" class="btn btn-default navbar-btn"><i
+            <button data-ng-hide="isActionRestricted('create')" type="button" data-ng-click="createItem()" class="btn btn-default navbar-btn"><i
                         class="fa fa-plus"></i> Create {{title}}
                 </button>
         </div>
@@ -40,7 +40,7 @@
             </td>
             <td>
                 <div class="btn-group">
-                    <button type="button" class="btn btn-default" data-ng-click="viewItem(item.id)">View {{title}}
+                    <button type="button" class="btn btn-default" data-ng-click="viewItem(item.id)">View
                     </button>
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false">
@@ -48,9 +48,9 @@
                         <span class="sr-only">Action Menu</span>
                     </button>
                     <ul class="dropdown-menu">
-                        <li data-ng-click="viewItem(item.id)"><a>View {{title}}</a></li>
-                        <li data-ng-click="editItem(item.id)"><a>Edit {{title}}</a></li>
-                        <li data-ng-click="deleteItem(item.id)"><a>Delete {{title}}</a></li>
+                        <li data-ng-hide="isActionRestricted('view')" data-ng-click="viewItem(item.id)"><a>View {{title}}</a></li>
+                        <li data-ng-hide="isActionRestricted('edit')" data-ng-click="editItem(item.id)"><a>Edit {{title}}</a></li>
+                        <li data-ng-hide="isActionRestricted('delete')" data-ng-click="deleteItem(item.id)"><a>Delete {{title}}</a></li>
                     </ul>
                 </div>
             </td>
